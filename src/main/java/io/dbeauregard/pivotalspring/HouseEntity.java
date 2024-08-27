@@ -16,7 +16,7 @@ class HouseEntity {
 
     protected HouseEntity() {} //for JPA
 
-    public HouseEntity(String address, Integer price) {
+    HouseEntity(String address, Integer price) {
         this.address = address;
         this.price = price;
     }

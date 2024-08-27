@@ -2,13 +2,14 @@ package io.dbeauregard.pivotalspring;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
-public class HouseEntity {
+@Entity(name="houses")
+class HouseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
     private String address;
     private Integer price;

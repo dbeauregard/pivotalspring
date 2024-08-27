@@ -21,6 +21,9 @@ public class PivotalspringApplication {
 		return (args) -> {
 			log.info("testing repo");
 			repo.save(new HouseEntity("1234 street", Integer.valueOf(2)));
+			repo.findAll().forEach(house -> {
+				log.info("Found House: {}", house);
+			});
 		};
 	}
 

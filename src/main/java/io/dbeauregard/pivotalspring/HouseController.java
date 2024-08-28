@@ -24,17 +24,20 @@ class HouseController {
         return repo.findById(id).orElseThrow(() -> new HouseNotFoundException(id));
     }
 
-    @PostMapping("/house/{id}")
-    HouseEntity  addHouse(@PathVariable Long id, @RequestBody HouseEntity house) {
-        log.info("Called addHouse() on {}.", id);
+    @PostMapping("/house")
+    HouseEntity  addHouse(@RequestBody HouseEntity house) {
+        log.info("Called addHouse() with house: {}", house);
         return repo.save(house);
     }
 
     @PutMapping("/house/{id}")
     HouseEntity updateHouse(@PathVariable Long id, @RequestBody HouseEntity newHouse) {
-        log.info("Called updateHouse() on {}.", id);
-        HouseEntity oldHouse = findHouseByIdorException(id);
-        return repo.save(newHouse);
+        log.info("Called updateHouse() on {} with house {}", id, newHouse);
+        if (newHouse.getId() == null || !newHouse.getId().equals(id)) {
+            log.info("House is missing ID or ID missmatch. ID {}, House {}.", id, newHouse);
+            return null;  //TODO, better to throw exception here and let spring handle it.
+        }
+        return repo.save(newHouse);  //TODO, really I should update the existing object for JPA
     }
 
     @GetMapping("/house/{id}")

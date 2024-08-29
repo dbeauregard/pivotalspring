@@ -3,6 +3,7 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
 - Unit Tests
+- Swagger
 - Setup Spring Profiles
 - Hook up to postgresql
 - Enable Spring Security

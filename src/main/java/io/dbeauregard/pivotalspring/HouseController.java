@@ -35,9 +35,13 @@ class HouseController {
         log.info("Called updateHouse() on {} with house {}", id, newHouse);
         if (newHouse.getId() == null || !newHouse.getId().equals(id)) {
             log.info("House is missing ID or ID missmatch. ID {}, House {}.", id, newHouse);
-            return null;  //TODO, better to throw exception here and let spring handle it.
+            throw new InvalidRequestException(String.format("House is missing ID or ID missmatch. ID %s, House %s.", id, newHouse));
         }
-        return repo.save(newHouse);  //TODO, really I should update the existing object for JPA
+
+        HouseEntity oldHouse = findHouseByIdorException(id);
+        oldHouse.setAddress(newHouse.getAddress());
+        oldHouse.setPrice(newHouse.getPrice());
+        return repo.save(oldHouse);
     }
 
     @GetMapping("/house/{id}")

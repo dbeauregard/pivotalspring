@@ -21,6 +21,12 @@ class HouseEntity {
         this.price = price;
     }
 
+    HouseEntity(Long id, String address, Integer price) {
+        this.id = id;
+        this.address = address;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }
@@ -31,6 +37,14 @@ class HouseEntity {
 
     public Integer getPrice() {
         return price;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override

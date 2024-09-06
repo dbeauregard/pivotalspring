@@ -10,7 +10,7 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 - Web Page???
 - CI/CD
 
-## Testing (Postman/curl)
+## Testing (Postman/curl/http)
 - [Get All] curl -v localhost:8080/houses | jq
 - [Get One, valid] curl -v localhost:8080/house/2 | jq
 - [Get One, 404] curl -v localhost:8080/house/99 [gives 404]

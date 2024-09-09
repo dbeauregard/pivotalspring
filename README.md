@@ -2,7 +2,7 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
-- Setup Spring Profiles (different than data profiles?)
+- Data Platform? https://docs.spring.io/spring-boot/how-to/data-initialization.html and DDL
 - Hook up to postgresql (need to drop and recreate)
 - Enable Spring Security
 - Web Page???

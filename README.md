@@ -2,8 +2,8 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
-- Setup Spring Profiles
-- Hook up to postgresql
+- Setup Spring Profiles (different than data profiles?)
+- Hook up to postgresql (need to drop and recreate)
 - Enable Spring Security
 - Web Page???
 - CI/CD

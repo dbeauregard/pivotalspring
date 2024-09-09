@@ -2,11 +2,10 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
-- Data Platform? https://docs.spring.io/spring-boot/how-to/data-initialization.html and DDL
-- Hook up to postgresql (need to drop and recreate)
 - Enable Spring Security
 - Web Page???
 - CI/CD
+- Clean up and add mocks to testing
 
 ## Testing (Postman/curl/http)
 - [Get All] curl -v localhost:8080/houses | jq

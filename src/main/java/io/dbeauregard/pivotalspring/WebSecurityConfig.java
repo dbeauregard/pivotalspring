@@ -21,7 +21,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/","/index.html","/house","/house/**","/houses","/actuator/**").permitAll()
+                        .requestMatchers("/","/index.html","/house","/house/**","/houses").permitAll()
                         .requestMatchers("/actuator/**","/error","/v3/**","/swagger-ui*/**").permitAll()
                         .anyRequest().authenticated()) //Default, require Auth (best practice)
                 .httpBasic(withDefaults())

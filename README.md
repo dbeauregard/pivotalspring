@@ -2,8 +2,6 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
-- Enable Spring Security
-- Web Page
 - DevContainers
 - Docker & K8s
 - REST Client (seperate app)

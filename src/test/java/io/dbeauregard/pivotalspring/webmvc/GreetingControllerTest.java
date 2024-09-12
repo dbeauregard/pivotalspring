@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
@@ -20,7 +21,7 @@ public class GreetingControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    //Also testing index page here
+    // Also testing index page here
     @Test
     public void homePage() throws Exception {
         mockMvc.perform(get("/index.html"))
@@ -28,6 +29,13 @@ public class GreetingControllerTest {
     }
 
     @Test
+    public void testGreetingNoLogin() throws Exception {
+        mockMvc.perform(get("/greeting")).andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @WithMockUser
     public void testGreetingDefault() throws Exception {
         mockMvc.perform(get("/greeting")).andDo(print())
                 .andExpect(status().isOk())
@@ -35,6 +43,7 @@ public class GreetingControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void testGreetingWithName() throws Exception {
         mockMvc.perform(get("/greeting?name=derek")).andDo(print())
                 .andExpect(status().isOk())

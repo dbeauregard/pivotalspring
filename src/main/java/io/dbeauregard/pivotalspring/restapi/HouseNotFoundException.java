@@ -1,4 +1,4 @@
-package io.dbeauregard.pivotalspring;
+package io.dbeauregard.pivotalspring.restapi;
 
 public class HouseNotFoundException extends RuntimeException {
 

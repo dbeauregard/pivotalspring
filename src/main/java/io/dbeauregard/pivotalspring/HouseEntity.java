@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity(name="houses")
-class HouseEntity {
+public class HouseEntity {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -16,12 +16,12 @@ class HouseEntity {
 
     protected HouseEntity() {} //for JPA
 
-    HouseEntity(String address, Integer price) {
+    public HouseEntity(String address, Integer price) {
         this.address = address;
         this.price = price;
     }
 
-    HouseEntity(Long id, String address, Integer price) {
+    public HouseEntity(Long id, String address, Integer price) {
         this.id = id;
         this.address = address;
         this.price = price;

@@ -1,4 +1,4 @@
-package io.dbeauregard.pivotalspring;
+package io.dbeauregard.pivotalspring.restapi;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

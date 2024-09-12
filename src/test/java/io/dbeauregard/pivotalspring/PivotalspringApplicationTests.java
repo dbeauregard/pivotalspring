@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
+import io.dbeauregard.pivotalspring.restapi.HouseController;
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class PivotalspringApplicationTests {
 

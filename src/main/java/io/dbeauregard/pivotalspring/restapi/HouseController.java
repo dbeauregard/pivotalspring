@@ -1,4 +1,4 @@
-package io.dbeauregard.pivotalspring;
+package io.dbeauregard.pivotalspring.restapi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.dbeauregard.pivotalspring.HouseEntity;
+import io.dbeauregard.pivotalspring.HouseRepository;
+
 @RestController
-class HouseController {
+public class HouseController {
     
     private static Logger log = LoggerFactory.getLogger(HouseController.class);
     private final HouseRepository repo;

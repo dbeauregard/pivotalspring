@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pivotalspring
+  namespace: default
+  labels:
+    app: pivotalspring
+    type: back-end
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pivotalspring
+      type: back-end
+  template:
+    metadata:
+      name: pivotalspring-pod
+      labels:
+        app: pivotalspring
+        type: back-end
+    spec:
+      containers:
+      - name: pivotalspring-container
+        image: dbeauregard/pivotalspring
+        ports:
+        - name: web-port
+          containerPort: 8080
+          protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pivotalspring-service
+  namespace: default
+  labels:
+    app: pivotalspring
+    type: back-end
+spec:
+  # ClusterIP, NodePort, LoadBalancer, ExternalName
+  # type: NodePort
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    nodePort: 30007
+  selector:
+    app: pivotalspring
+    type: back-end

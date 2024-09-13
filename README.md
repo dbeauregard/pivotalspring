@@ -2,8 +2,8 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
-- DevContainers
-- Docker & K8s
+- TestContainers
+- K8s
 - REST Client (seperate app)
 - CI/CD
 - Clean up and add mocks to testing
@@ -15,3 +15,8 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 - [Add One] curl -X POST localhost:8080/house -H 'Content-type:application/json' -d '{"address": "Samwise Gamgee", "price": "456123"}'
 - [Update One ]curl -X PUT localhost:8080/house/5 -H 'Content-type:application/json' -d '{"id": "5","address": "Samwise", "price": "456123"}'
 - [Delete One] curl -X DELETE localhost:8080/house/5
+
+## Running in Docker
+- gradle clean build
+- docker build --build-arg JAR_FILE=build/libs/\*.jar -t dbeauregard/pivotalspring .
+- docker run -p 8080:8080 dbeauregard/pivotalspring

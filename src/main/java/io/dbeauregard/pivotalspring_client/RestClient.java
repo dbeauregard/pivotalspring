@@ -16,24 +16,23 @@ public class RestClient {
 
     private static final Logger log = LoggerFactory.getLogger(RestClient.class);
 
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
 
-    	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
+    @Bean
+    @Profile("!test")
+    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+        return args -> {
 
-	@Bean
-	@Profile("!test")
-	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-		return args -> {
-			
             House result = restTemplate.getForObject("http://localhost:8080/house/1", House.class);
             log.info(result.toString());
 
             House[] results = restTemplate.getForObject("http://localhost:8080/houses", House[].class);
             for (House h : results) {
-                log.info(h.toString());   
+                log.info(h.toString());
             }
-		};
-	}
+        };
+    }
 }

@@ -26,10 +26,14 @@ public class RestClient {
 	@Profile("!test")
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			// Quote quote = restTemplate.getForObject(
-			// 		"http://localhost:8080/api/random", Quote.class);
-			var result = restTemplate.getForObject("http://localhost:8080/houses", String.class);
+			
+            House result = restTemplate.getForObject("http://localhost:8080/house/1", House.class);
             log.info(result.toString());
+
+            House[] results = restTemplate.getForObject("http://localhost:8080/houses", House[].class);
+            for (House h : results) {
+                log.info(h.toString());   
+            }
 		};
 	}
 }

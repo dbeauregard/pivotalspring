@@ -3,4 +3,3 @@ This is a 'pivotal' (a.k.a., key) client applicaiton that calls the PivotalSprin
 
 ## TODO
 - Testing
-- externalize URL

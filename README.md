@@ -2,7 +2,6 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
-- REST Client (seperate app)
 - CI/CD
 - Clean up and add mocks to testing
 

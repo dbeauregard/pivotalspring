@@ -3,6 +3,18 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
 - CI/CD
+-- Clean
+-- Any code generation for REST? (stubs/skeletons)?
+-- Compile (javac)
+-- Jar (aka Package, `jar`, fat-jar)
+-- Run Tests (Junit) - post results
+-- Javadoc/other docs (API? Swagger?)
+-- Linting (code quality, find bugs, formatting, etc.)
+-- Security Scanning (Static, dependancy, container)
+-- Post Jar to artifactory
+-- Build Container (CI or CD?)
+-- Post OCI image to Repo
+-- CD...
 - Clean up and add mocks to testing
 
 ## Testing (Postman/curl/http)

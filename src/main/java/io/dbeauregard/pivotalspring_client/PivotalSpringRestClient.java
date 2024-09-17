@@ -1,5 +1,7 @@
 package io.dbeauregard.pivotalspring_client;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +10,9 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -42,11 +47,16 @@ public class PivotalSpringRestClient {
         };
     }
 
-    public House[] getAll() {
-        House[] results = restTemplate.getForObject(url + "/houses", House[].class);
-        for (House h : results) {
-            log.info(h.toString());
-        }
+    public List<House> getAll() {
+        // House[] results = restTemplate.getForObject(url + "/houses", House[].class);
+        ResponseEntity<List<House>> response = restTemplate.exchange(
+                url + "/houses",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<House>>() {
+                });
+        List<House> results = response.getBody();
+        results.forEach(h -> log.info(h.toString()));
         return results;
     }
 

@@ -70,9 +70,9 @@ public class PivotalSpringRestClientTest {
     server.expect(ExpectedCount.once(), requestTo("http://localhost:8080/houses"))
         .andRespond(withSuccess(detailsString, MediaType.APPLICATION_JSON));
 
-    House [] results = client.getAll();
-    assertThat(results.length).isEqualTo(3);
-    assertThat(results[1].id()).isEqualTo(Long.valueOf(testId+1));
+    List<House> results = client.getAll();
+    assertThat(results.size()).isEqualTo(3);
+    assertThat(results.get(1).id()).isEqualTo(Long.valueOf(testId+1));
   }
 
 }

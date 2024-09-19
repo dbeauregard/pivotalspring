@@ -2,8 +2,6 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
-- HATEOAS
-    - can I clean up the model (private, default, public, getters/setters?)
 - CI/CD
     - Clean
     - Any code generation for REST? (stubs/skeletons)?
@@ -19,13 +17,13 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
     - CD...
 - Clean up and add mocks to testing
 
-## Testing (Postman/curl/http)
-- [Get All] curl -v localhost:8080/houses | jq
-- [Get One, valid] curl -v localhost:8080/house/2 | jq
-- [Get One, 404] curl -v localhost:8080/house/99 [gives 404]
-- [Add One] curl -X POST localhost:8080/house -H 'Content-type:application/json' -d '{"address": "Samwise Gamgee", "price": "456123"}'
-- [Update One ]curl -X PUT localhost:8080/house/5 -H 'Content-type:application/json' -d '{"id": "5","address": "Samwise", "price": "456123"}'
-- [Delete One] curl -X DELETE localhost:8080/house/5
+## Testing (Postman/http)
+- [Get All] http localhost:8080/houses
+- [Get One, valid] http localhost:8080/houses/2
+- [Get One, 404] http localhost:8080/houses/99 [gives 404]
+- [Add One] http post localhost:8080/houses address='1234 street' price=123456
+- [Update One] http put localhost:8080/houses/6 address="4321" price=4321111 id=6
+- [Delete One] http delete localhost:8080/houses/5
 
 ## Running in Docker
 - gradle clean build

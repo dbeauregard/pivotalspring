@@ -1,10 +1,13 @@
 package io.dbeauregard.pivotalspring;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+//Spring JPA Entity
 @Entity(name="houses")
 public class HouseEntity {
 
@@ -21,6 +24,7 @@ public class HouseEntity {
         this.price = price;
     }
 
+    @JsonCreator
     public HouseEntity(Long id, String address, Integer price) {
         this.id = id;
         this.address = address;

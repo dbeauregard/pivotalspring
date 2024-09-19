@@ -2,6 +2,8 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
+- HATEOAS
+    - can I clean up the model (private, default, public, getters/setters?)
 - CI/CD
     - Clean
     - Any code generation for REST? (stubs/skeletons)?

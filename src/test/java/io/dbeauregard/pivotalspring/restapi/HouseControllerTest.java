@@ -23,6 +23,8 @@ import io.dbeauregard.pivotalspring.HouseEntity;
 @AutoConfigureMockMvc
 public class HouseControllerTest {
 
+    private static final String jsonListPrefix = "$._embedded.houseList";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -35,7 +37,7 @@ public class HouseControllerTest {
 
     @Test
     public void testGetOneValid() throws Exception {
-        mockMvc.perform(get("/house/1")).andDo(print())
+        mockMvc.perform(get("/houses/1")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.address").isNotEmpty())
@@ -45,7 +47,7 @@ public class HouseControllerTest {
     @Test
     // Invalid ID -> 404
     public void testGetOneInValid() throws Exception {
-        mockMvc.perform(get("/house/404")).andDo(print())
+        mockMvc.perform(get("/houses/404")).andDo(print())
                 .andExpect(status().isNotFound());
     }
 
@@ -54,14 +56,14 @@ public class HouseControllerTest {
         mockMvc.perform(get("/houses")).andDo(print())
                 .andExpect(status().isOk())
                 // .andExpect(jsonPath("$", hasSize(4))) //tests are run in parallel so this changes
-                .andExpect(jsonPath("$.[0].id").value(1))
-                .andExpect(jsonPath("$.[0].address").isNotEmpty())
-                .andExpect(jsonPath("$.[0].price").isNotEmpty());
+                .andExpect(jsonPath(jsonListPrefix + ".[0].id").value(1))
+                .andExpect(jsonPath(jsonListPrefix + ".[0].address").isNotEmpty())
+                .andExpect(jsonPath(jsonListPrefix + ".[0].price").isNotEmpty());
     }
 
     @Test
     public void testAdd() throws Exception {
-        mockMvc.perform(post("/house")
+        mockMvc.perform(post("/houses")
                 .content(asJsonString(new HouseEntity("1234", 9876)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
@@ -72,7 +74,7 @@ public class HouseControllerTest {
 
     @Test
     public void testUpdateNewFails() throws Exception {
-        mockMvc.perform(put("/house/20")
+        mockMvc.perform(put("/houses/20")
                 .content(asJsonString(new HouseEntity(Long.valueOf(20), "1234", 9876)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isNotFound());
@@ -80,7 +82,7 @@ public class HouseControllerTest {
 
     @Test
     public void testUpdateExisting() throws Exception {
-        mockMvc.perform(put("/house/2")
+        mockMvc.perform(put("/houses/2")
                 .content(asJsonString(new HouseEntity(Long.valueOf(2), "1234", 9876)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
@@ -92,7 +94,7 @@ public class HouseControllerTest {
     @Test
     // Id in Body is null
     public void testUpdateNullId() throws Exception {
-        mockMvc.perform(put("/house/2")
+        mockMvc.perform(put("/houses/2")
                 .content(asJsonString(new HouseEntity("1234", 9876)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isBadRequest());
@@ -101,7 +103,7 @@ public class HouseControllerTest {
     @Test
     // Id in Body doesn't match parameter
     public void testUpdateWrongID() throws Exception {
-        mockMvc.perform(put("/house/2")
+        mockMvc.perform(put("/houses/2")
                 .content(asJsonString(new HouseEntity(Long.valueOf(99), "1234", 9876)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isBadRequest());
@@ -109,18 +111,18 @@ public class HouseControllerTest {
 
     @Test
     public void testDeleteValid() throws Exception {
-        mockMvc.perform(delete("/house/4"))
+        mockMvc.perform(delete("/houses/4"))
         .andDo(print()).andExpect(status().isOk());
 
         //Should no longer exist
-        mockMvc.perform(get("/house/4")).andDo(print())
+        mockMvc.perform(get("/houses/4")).andDo(print())
         .andExpect(status().isNotFound());
     }
 
     @Test
     // Invalid ID -> 404
     public void testDeleteInvalid() throws Exception {
-        mockMvc.perform(delete("/house/99"))
+        mockMvc.perform(delete("/houses/99"))
         .andDo(print()).andExpect(status().isNotFound());
     }
 

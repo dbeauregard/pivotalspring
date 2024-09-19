@@ -30,6 +30,8 @@ import io.dbeauregard.pivotalspring.HouseEntity;
 @Testcontainers
 public class TestContainersTest {
 
+    private static final String jsonListPrefix = "$._embedded.houseList";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -53,14 +55,14 @@ public class TestContainersTest {
                 .andExpect(status().isOk())
                 // .andExpect(jsonPath("$", hasSize(4))) //tests are run in parallel so this
                 // changes
-                .andExpect(jsonPath("$.[0].id").value(1))
-                .andExpect(jsonPath("$.[0].address").isNotEmpty())
-                .andExpect(jsonPath("$.[0].price").isNotEmpty());
+                .andExpect(jsonPath(jsonListPrefix + ".[0].id").value(1))
+                .andExpect(jsonPath(jsonListPrefix + ".[0].address").isNotEmpty())
+                .andExpect(jsonPath(jsonListPrefix + ".[0].price").isNotEmpty());
     }
 
     @Test
     public void testAdd() throws Exception {
-        mockMvc.perform(post("/house")
+        mockMvc.perform(post("/houses")
                 .content(asJsonString(new HouseEntity("1234", 9876)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())

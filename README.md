@@ -15,6 +15,8 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
     - Build Container (CI or CD?)
     - Post OCI image to Repo
     - CD...
+        - ...
+        - Deploy to production!
 - Clean up and add mocks to testing
 
 ## Testing (Postman/http)

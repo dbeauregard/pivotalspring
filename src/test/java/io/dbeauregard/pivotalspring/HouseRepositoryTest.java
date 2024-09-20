@@ -13,6 +13,7 @@ public class HouseRepositoryTest {
 
     private final HouseRepository repo;
 
+    //TODO, future use?
 	@Autowired
 	private TestEntityManager entityManager;
 

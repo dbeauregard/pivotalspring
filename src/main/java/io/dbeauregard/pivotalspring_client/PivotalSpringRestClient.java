@@ -22,13 +22,10 @@ class PivotalSpringRestClient {
 
     private static final Logger log = LoggerFactory.getLogger(PivotalSpringRestClient.class);
 
-    private final String baseUrl;
-
     private final RestClient restClient;
 
     PivotalSpringRestClient(@Value("${io.dbeauregard.pivotalspring.baseurl}") String baseUrl,
             RestClient.Builder rcBuilder) {
-        this.baseUrl = baseUrl;
         log.info("Pivotal Spring Base URL: {}", baseUrl);
         restClient = rcBuilder.baseUrl(baseUrl).build();
     }

@@ -1,5 +1,5 @@
 {"properties": [{
-  "name": "io.dbeauregard.pivotalspring.url",
+  "name": "io.dbeauregard.pivotalspring.baseurl",
   "type": "java.lang.String",
-  "description": "Server URL'"
+  "description": "Pivotal Spring Server Base URL'"
 }]}

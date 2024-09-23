@@ -27,7 +27,15 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 - [Update One] http put localhost:8080/houses/6 address="4321" price=4321111 id=6
 - [Delete One] http delete localhost:8080/houses/5
 
+## Building & Running Locally
+(uses docker compose; docker must be running)
+- ./gradlew clean build
+- ./gradlew bootRun 
+
 ## Running in Docker
 - gradle clean build
 - docker build --build-arg JAR_FILE=build/libs/\*.jar -t dbeauregard/pivotalspring .
 - docker run -p 8080:8080 dbeauregard/pivotalspring
+
+## Running in Kubernetes
+- kubectl deploy -f kubernetes.yaml

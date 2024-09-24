@@ -2,6 +2,7 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
+- Spring AI
 - CI/CD
     - Clean
     - Any code generation for REST? (stubs/skeletons)?
@@ -31,3 +32,9 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 - gradle clean build
 - docker build --build-arg JAR_FILE=build/libs/\*.jar -t dbeauregard/pivotalspring .
 - docker run -p 8080:8080 dbeauregard/pivotalspring
+
+## Spring AI with Ollama
+- brew install ollama
+- ollama serve [runs ollama 'server']
+- (new terminal, will install model first time) ollama run llama3.1 [`ctrl + d` to exit]
+- (Open WebUI) docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main

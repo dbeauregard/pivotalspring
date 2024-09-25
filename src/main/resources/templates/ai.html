@@ -5,19 +5,36 @@
     <title>Welcome to Spring AI with Ollama!</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<style type="text/css">
+    .formfield {
+        display: flex;
+        align-items: top;
+    }
+
+    .divvy {
+        margin-left: 108px;
+    }
+</style>
 
 <body>
     <h2>Welcome to Spring AI with Ollama!</h2>
+
+    <!-- Get Input Message -->
     <form action="#" method="get">
         <!-- th:action="@{/save}" th:object="${message}" -->
-        <label for="message">Chat Message:</label>
-        <input type="text" id="message" name="message">
-        <!-- th:field="*{value}" -->
-        <br><br>
-        <button type="submit" name="Submit">Submit</button>
-        <!-- th:value="${rowStat.index}" th:text="#{seedstarter.row.remove}" -->
+        <div class="formfield">
+            <label for="message">Chat Message: </label>
+            <textarea name="message" id="message" style="width:500px; height:50px; margin-left: 1em;"></textarea>
+            <!-- th:field="*{value}" -->
+        </div>
+        <br>
+        <div class="divvy">
+            <button type="submit" name="submit">Submit</button>
+            <!-- th:value="${rowStat.index}" th:text="#{seedstarter.row.remove}" -->
+        </div>
     </form>
     <br><br>
+
     <!-- AI Output Text -->
     <pre th:text="|Result: ${result}|" />
 </body>

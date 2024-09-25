@@ -1,13 +1,25 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-    <head> 
-        <title>Welcome to Spring AI with Ollama!</title> 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
-    <body>
-        <pre th:text="|Result: ${result}|" />
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </body>
+
+<head>
+    <title>Welcome to Spring AI with Ollama!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h2>Welcome to Spring AI with Ollama!</h2>
+    <form action="#" method="get">
+        <!-- th:action="@{/save}" th:object="${message}" -->
+        <label for="message">Chat Message:</label>
+        <input type="text" id="message" name="message">
+        <!-- th:field="*{value}" -->
+        <br><br>
+        <button type="submit" name="Submit">Submit</button>
+        <!-- th:value="${rowStat.index}" th:text="#{seedstarter.row.remove}" -->
+    </form>
+    <br><br>
+    <!-- AI Output Text -->
+    <pre th:text="|Result: ${result}|" />
+</body>
+
 </html>

@@ -21,7 +21,7 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
         - Deploy to production!
 - Clean up and add mocks to testing
 - AOT, CDS, Native Images
-- Combine this in client into one Repo, nested Gradle (term?)?
+- Combine this in client into one Repo, nested Gradle (sp?)?
 
 ## Testing (Postman/http)
 - [Get All] http localhost:8080/houses

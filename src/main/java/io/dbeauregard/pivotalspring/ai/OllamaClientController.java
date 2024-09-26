@@ -3,6 +3,8 @@ package io.dbeauregard.pivotalspring.ai;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
+import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,9 @@ public class OllamaClientController {
     private static final Logger log = LoggerFactory.getLogger(OllamaClientController.class);
 
     public OllamaClientController(ChatClient.Builder builder) {
-        this.chatClient = builder.defaultSystem("talk like a drunken pirate").build();
+        PromptChatMemoryAdvisor memory = new PromptChatMemoryAdvisor(new InMemoryChatMemory());
+        this.chatClient = builder.defaultSystem("talk like a drunken pirate").defaultAdvisors(memory).build();
+        
     }
 
     // @ModelAttribute("allFeatures")
@@ -32,7 +36,7 @@ public class OllamaClientController {
         // Only call Model if a message is suplied, else respond with default response
         String result = "Type you message above and click submit.";
         if (msg != null) {
-            result = chatClient.prompt().user(msg).call().content();
+            result = chatClient.prompt().user(msg).call().content(); //.advisor()
             log.info("AI Result: {}", result);
         }
 

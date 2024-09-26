@@ -23,12 +23,6 @@ ext {
   set('springAiVersion', "1.0.0-M2")
 }
 
-// dependencyManagement {
-//   imports {
-//     mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
-//   }
-// }
-
 dependencies {
 	implementation platform("org.springframework.ai:spring-ai-bom:${springAiVersion}")
 	implementation 'org.springframework.boot:spring-boot-starter-security'

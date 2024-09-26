@@ -3,6 +3,7 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
 - Spring AI
+- Thymeleaf and HTMX
 - CI/CD
     - Clean
     - Any code generation for REST? (stubs/skeletons)?
@@ -19,6 +20,8 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
         - ...
         - Deploy to production!
 - Clean up and add mocks to testing
+- AOT, CDS, Native Images
+- Combine this in client into one Repo, nested Gradle (term?)?
 
 ## Testing (Postman/http)
 - [Get All] http localhost:8080/houses

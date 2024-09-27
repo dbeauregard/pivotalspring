@@ -18,7 +18,10 @@ public class OllamaClientController {
 
     public OllamaClientController(ChatClient.Builder builder) {
         PromptChatMemoryAdvisor memory = new PromptChatMemoryAdvisor(new InMemoryChatMemory());
-        this.chatClient = builder.defaultSystem("talk like a drunken pirate").defaultAdvisors(memory).build();
+        this.chatClient = builder.defaultSystem("""
+                You are a helpful assistant.
+                """)
+            .defaultAdvisors(memory).build();
         
     }
 

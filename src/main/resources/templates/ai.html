@@ -20,7 +20,7 @@
     <h2>Welcome to Spring AI with Ollama!</h2>
 
     <!-- Get Input Message -->
-    <form action="#" method="get">
+    <form name="msgform" action="#" method="get">
         <!-- th:action="@{/save}" th:object="${message}" -->
         <div class="formfield">
             <label for="message">Chat Message: </label>
@@ -33,6 +33,7 @@
             <!-- th:value="${rowStat.index}" th:text="#{seedstarter.row.remove}" -->
         </div>
     </form>
+
     <br><br>
 
     <!-- AI Output Text -->

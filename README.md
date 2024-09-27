@@ -3,6 +3,8 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
 - Spring AI
+    - RAG
+    - Functions
 - Thymeleaf and HTMX
 - CI/CD
     - Clean

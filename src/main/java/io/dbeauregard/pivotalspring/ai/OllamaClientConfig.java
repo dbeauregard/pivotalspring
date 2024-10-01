@@ -58,7 +58,7 @@ public class OllamaClientConfig {
         this.chatClient = builder
                 .defaultSystem(basePrompt) // Prompt
                 .defaultAdvisors(memory, // Chat Memory
-                        // new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), ragPrompt), // RAG
+                        new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), ragPrompt), // RAG
                         new SimpleLoggerAdvisor()) // Logging, "add toward end"
                 .defaultFunctions("getHouses") // Function
                 .build();

@@ -64,7 +64,7 @@ public class HouseControllerTest {
     @Test
     public void testAdd() throws Exception {
         mockMvc.perform(post("/houses")
-                .content(asJsonString(new HouseEntity("1234", 9876)))
+                .content(asJsonString(new HouseEntity("1234", 987, 3, 2, 1500)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(5))
@@ -75,7 +75,7 @@ public class HouseControllerTest {
     @Test
     public void testUpdateNewFails() throws Exception {
         mockMvc.perform(put("/houses/20")
-                .content(asJsonString(new HouseEntity(Long.valueOf(20), "1234", 9876)))
+                .content(asJsonString(new HouseEntity(Long.valueOf(20), "1234", 987, 3, 2, 1500)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isNotFound());
     }
@@ -83,7 +83,7 @@ public class HouseControllerTest {
     @Test
     public void testUpdateExisting() throws Exception {
         mockMvc.perform(put("/houses/2")
-                .content(asJsonString(new HouseEntity(Long.valueOf(2), "1234", 9876)))
+                .content(asJsonString(new HouseEntity(Long.valueOf(2), "1234", 987, 3, 2, 1500)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2))
@@ -95,7 +95,7 @@ public class HouseControllerTest {
     // Id in Body is null
     public void testUpdateNullId() throws Exception {
         mockMvc.perform(put("/houses/2")
-                .content(asJsonString(new HouseEntity("1234", 9876)))
+                .content(asJsonString(new HouseEntity("1234", 987, 3, 2, 1500)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isBadRequest());
     }
@@ -104,7 +104,7 @@ public class HouseControllerTest {
     // Id in Body doesn't match parameter
     public void testUpdateWrongID() throws Exception {
         mockMvc.perform(put("/houses/2")
-                .content(asJsonString(new HouseEntity(Long.valueOf(99), "1234", 9876)))
+                .content(asJsonString(new HouseEntity(Long.valueOf(99), "1234", 987, 3, 2, 1500)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isBadRequest());
     }

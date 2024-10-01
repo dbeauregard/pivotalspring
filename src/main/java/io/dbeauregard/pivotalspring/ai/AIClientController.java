@@ -34,7 +34,7 @@ public class AIClientController {
         // Only call Model if a message is suplied, else respond with default response
         String result = "Type you message above and click submit.";
         if (msg != null) {
-            Assert.notNull(chatClient, "ChatClient not configured.");
+            Assert.notNull(chatClient, "ChatClient not configured (null).");
             result = chatClient.prompt().user(msg).call().content();
             log.info("AI Result: {}", result);
         }
@@ -43,4 +43,6 @@ public class AIClientController {
         model.addAttribute("message", new Message());
         return "ai";
     }
+
+    //TODO: Add Form Post
 }

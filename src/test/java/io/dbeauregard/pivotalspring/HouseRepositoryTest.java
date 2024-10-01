@@ -26,11 +26,11 @@ public class HouseRepositoryTest {
     // JPA/Hybernate.
     @Test
     public void smokeTestRepo() {
-        HouseEntity result = repo.save(new HouseEntity("1234", 56789));
+        HouseEntity result = repo.save(new HouseEntity("1234", 56789, 3, 2, 2000));
         assertNotNull(result.getId());
         assertNotNull(repo.findById(result.getId()));
         result.setAddress("5678");
-        result = repo.save(new HouseEntity("1234", 56789));
+        result = repo.save(new HouseEntity("1234", 56789, 2, 2, 1500));
         assertNotNull(repo.findAll());
         assertNotNull(result.getId());
         repo.delete(result);

@@ -63,7 +63,7 @@ public class TestContainersTest {
     @Test
     public void testAdd() throws Exception {
         mockMvc.perform(post("/houses")
-                .content(asJsonString(new HouseEntity("1234", 9876)))
+                .content(asJsonString(new HouseEntity("1234", 9876, 3, 3, 1500)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(5))

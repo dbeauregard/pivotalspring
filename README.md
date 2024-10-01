@@ -6,6 +6,7 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
     - RAG (Vector Database and embeddings)
     - Functions
     - Streaming (To UI)
+    - JSON Output
 - Thymeleaf and HTMX
     - POST for Form (and model)
 - CI/CD

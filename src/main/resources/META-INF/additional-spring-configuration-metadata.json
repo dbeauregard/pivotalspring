@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "io.dbeauregard.pivotalspring.baseprompt",
+    "type": "java.lang.String",
+    "description": "The Top Level AI Prompt."
+  },
+  {
+    "name": "io.dbeauregard.pivotalspring.ragprompt",
+    "type": "java.lang.String",
+    "description": "The AI RAG Prompt."
+  }
+]}

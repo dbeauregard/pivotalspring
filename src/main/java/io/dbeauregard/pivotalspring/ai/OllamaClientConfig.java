@@ -13,33 +13,48 @@ import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Component;
 
 import io.dbeauregard.pivotalspring.HouseEntity;
+import io.dbeauregard.pivotalspring.HouseRepository;
 
-@Controller
+@Configuration
 @Profile("ai")
-public class OllamaClientController {
+public class OllamaClientConfig {
 
-    private final ChatClient chatClient;
-    private static final Logger log = LoggerFactory.getLogger(OllamaClientController.class);
+    private final ChatClient.Builder builder;
+    private ChatClient chatClient;
+    private static final Logger log = LoggerFactory.getLogger(OllamaClientConfig.class);
     private final VectorStore vectorStore;
+    private final HouseRepository repo;
 
-    public OllamaClientController(ChatClient.Builder builder, VectorStore vectorStore) {
+    @Value("${io.dbeauregard.pivotalspring.baseprompt}")
+    private String basePrompt;
+
+    @Value("${io.dbeauregard.pivotalspring.ragprompt}")
+    private String ragPrompt;
+
+    public OllamaClientConfig(ChatClient.Builder builder, VectorStore vectorStore, HouseRepository repo) {
         this.vectorStore = vectorStore;
+        this.builder = builder;
+        this.repo = repo;
+    }
+
+    private void buildChatClient() {
+        if(chatClient != null) return;
+
         PromptChatMemoryAdvisor memory = new PromptChatMemoryAdvisor(new InMemoryChatMemory());
-        this.chatClient = builder.defaultSystem("""
-                You are a helpful assistant.
-                """)
-                .defaultAdvisors(memory) //Chat Memory
-                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore)) //RAG
-                .defaultFunctions("getHouses")
+        this.chatClient = builder
+                .defaultSystem(basePrompt) // Prompt
+                .defaultAdvisors(memory) // Chat Memory
+                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), ragPrompt)) // RAG
+                .defaultFunctions("getHouses") //Function
                 .build();
 
         List<Document> documents = List.of(
@@ -59,36 +74,21 @@ public class OllamaClientController {
     }
 
     @Bean
-    @Description("get list of houses")
-    Function <Reqeust, HouseEntity> getHouses() {
+    ChatClient getChatClient() {
+        buildChatClient();
+        return this.chatClient;
+    }
+
+    @Bean
+    @Description("This is a list of houses for sale")
+    Function<Reqeust, Iterable<HouseEntity>> getHouses() {
         return Reqeust -> {
-            log.info("Function Called.");
-            return new HouseEntity("1234", 1234);
+            log.info("Function Called with. {}", Reqeust);
+            return repo.findAll();
         };
     }
 
-    record Reqeust(String input) {}
-
-    // @ModelAttribute("allFeatures")
-    // public List<Message> populateFeatures() {
-    // return Arrays.asList(Message.ALL);
-    // }
-
-    @GetMapping("/ai")
-    public String getAI(@RequestParam(name = "message", required = false) String msg,
-            Model model)
-            throws Exception {
-        log.info("AI Called with: {}", msg);
-
-        // Only call Model if a message is suplied, else respond with default response
-        String result = "Type you message above and click submit.";
-        if (msg != null) {
-            result = chatClient.prompt().user(msg).call().content(); // .advisor()
-            log.info("AI Result: {}", result);
-        }
-
-        model.addAttribute("result", result);
-        model.addAttribute("message", new Message());
-        return "ai";
+    record Reqeust(String input) {
     }
+
 }

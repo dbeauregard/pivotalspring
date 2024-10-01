@@ -17,6 +17,7 @@ java {
 repositories {
   mavenCentral()
   maven { url 'https://repo.spring.io/milestone' }
+  maven { url 'https://repo.spring.io/snapshot' }
 }
 
 ext {
@@ -34,6 +35,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
+	implementation 'org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter'
+	// implementation 'org.springframework.ai:spring-ai-neo4j-store-spring-boot-starter'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

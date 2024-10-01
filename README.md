@@ -3,9 +3,11 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 
 ## Todo:
 - Spring AI
-    - RAG
+    - RAG (Vector Database and embeddings)
     - Functions
+    - Streaming (To UI)
 - Thymeleaf and HTMX
+    - POST for Form (and model)
 - CI/CD
     - Clean
     - Any code generation for REST? (stubs/skeletons)?
@@ -37,6 +39,7 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 (uses docker compose; docker must be running)
 - ./gradlew clean build
 - ./gradlew bootRun 
+- [local postgres] ./gradlew bootRun --args='--spring.profiles.active=psql'
 
 ## Running in Docker
 - gradle clean build

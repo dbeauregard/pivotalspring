@@ -9,17 +9,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 import io.dbeauregard.pivotalspring.HouseEntity;
 import io.dbeauregard.pivotalspring.HouseRepository;
@@ -55,6 +54,7 @@ public class OllamaClientConfig {
                 .defaultAdvisors(memory) // Chat Memory
                 .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), ragPrompt)) // RAG
                 .defaultFunctions("getHouses") //Function
+                .defaultAdvisors(new SimpleLoggerAdvisor())  //Logging, "add toward end"
                 .build();
 
         List<Document> documents = List.of(

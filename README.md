@@ -39,7 +39,7 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 (uses docker compose; docker must be running)
 - ./gradlew clean build
 - ./gradlew bootRun 
-- [local postgres] ./gradlew bootRun --args='--spring.profiles.active=psql'
+- [local postgres/pgvector] ./gradlew bootRun --args='--spring.profiles.active=psql,ai'
 
 ## Running in Docker
 - gradle clean build
@@ -54,3 +54,4 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 - ollama serve [runs ollama 'server']
 - (new terminal, will install model first time) ollama run llama3.1 [`ctrl + d` to exit]
 - (Open WebUI) docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+- [local postgres/pgvector] ./gradlew bootRun --args='--spring.profiles.active=psql,ai'

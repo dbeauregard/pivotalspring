@@ -2,6 +2,7 @@ package io.dbeauregard.pivotalspring.ai;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,15 @@ import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import io.dbeauregard.pivotalspring.HouseEntity;
 
 @Controller
 @Profile("ai")
@@ -32,8 +37,9 @@ public class OllamaClientController {
         this.chatClient = builder.defaultSystem("""
                 You are a helpful assistant.
                 """)
-                .defaultAdvisors(memory)
-                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore))
+                .defaultAdvisors(memory) //Chat Memory
+                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore)) //RAG
+                .defaultFunctions("getHouses")
                 .build();
 
         List<Document> documents = List.of(
@@ -51,6 +57,17 @@ public class OllamaClientController {
         List<Document> results = vectorStore.similaritySearch(SearchRequest.query("Spring").withTopK(5));
         log.info("VectorStore Result: {}", results);
     }
+
+    @Bean
+    @Description("get list of houses")
+    Function <Reqeust, HouseEntity> getHouses() {
+        return Reqeust -> {
+            log.info("Function Called.");
+            return new HouseEntity("1234", 1234);
+        };
+    }
+
+    record Reqeust(String input) {}
 
     // @ModelAttribute("allFeatures")
     // public List<Message> populateFeatures() {

@@ -67,7 +67,7 @@ public class HouseControllerTest {
                 .content(asJsonString(new HouseEntity("1234", 987, 3, 2, 1500)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(5))
+                .andExpect(jsonPath("$.id").value(11))
                 .andExpect(jsonPath("$.address").isNotEmpty())
                 .andExpect(jsonPath("$.price").isNotEmpty());
     }

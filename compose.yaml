@@ -6,7 +6,7 @@ services:
   #     - 'POSTGRES_PASSWORD=secret'
   #     - 'POSTGRES_USER=myuser'
   #   ports:
-  #     - '5432'
+  #     - '5432:5432'
   pgvector:
     image: 'pgvector/pgvector:pg16'
     environment:
@@ -16,10 +16,10 @@ services:
     labels:
       - "org.springframework.boot.service-connection=postgres"
     ports:
-      - '5432'
+      - '5432:5432'
   # neo4j:
   #   image: 'neo4j:latest'
   #   environment:
   #     - 'NEO4J_AUTH=neo4j/notverysecret'
   #   ports:
-  #     - '7687'
+  #     - '7687:7687'

@@ -15,18 +15,23 @@
     <!-- Get Input Message -->
     <form name="nameform" action="#" method="get">
         <div class="formfield">
-            <label for="name">Hello Name:  </label>
+            <label for="name">Hello Name:&nbsp;&nbsp;</label>
             <input type="text" name="name" id="name">
             <button type="submit" name="submitget">Submit [GET]</button>
         </div>
     </form>
     <br>
+
+    <!-- Form with POST -->
     <form name="postForm" action="#" th:action="@{/greeting}" method="post" th:object="${greetingmodel}">
-        <label for="input">Input:  </label>
+        <label for="input">Input:&nbsp;&nbsp;</label>
             <input type="text" name="input" id="input" th:field="*{data}">
-        <input type="submit" name="submitpost" value="Submit [POST]" />
+        <input type="submit" name="submitpost" value="Submit [POST]"/>
+        <input type="reset" value="Reset" />
+        <small><p th:text="|Post data: ${greetingmodel.data}|" /></small>
     </form>
 
+    <!-- Spring Logout -->
     <br><br>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out" />

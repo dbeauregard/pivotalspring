@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class GreetingController {
 
@@ -20,19 +19,26 @@ public class GreetingController {
     @GetMapping("/greeting")
     public String getGreeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
             Model model, Authentication auth) {
+
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         log.info("/greeting called with param: {}, and principal: {}", name, userDetails.getUsername());
-        model.addAttribute("name", name);
-        model.addAttribute("username", userDetails.getUsername());
-        model.addAttribute("roles", userDetails.getAuthorities());
-        model.addAttribute("greetingmodel", new GreetingModel());
+        loadModel(name, model, userDetails, new GreetingModel());
         return "greeting";
     }
 
     @PostMapping("/greeting")
-    public String postMethodName(@ModelAttribute GreetingModel greetingModel, Model model) {
+    public String postMethodName(@ModelAttribute GreetingModel greetingModel, Model model, Authentication auth) {
+        
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
         log.info("Greeting POST called w/: {}", greetingModel.getData());
-        model.addAttribute("greetingmodel", new GreetingModel());
+        loadModel(greetingModel.getData(), model, userDetails, greetingModel);
         return "greeting";
+    }
+
+    private void loadModel(String name, Model model, UserDetails userDetails, GreetingModel greetingModel) {
+        model.addAttribute("name", name);
+        model.addAttribute("username", userDetails.getUsername());
+        model.addAttribute("roles", userDetails.getAuthorities());
+        model.addAttribute("greetingmodel", greetingModel);
     }
 }

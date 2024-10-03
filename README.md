@@ -8,8 +8,6 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
     - Prompt tuning
     - Streaming (To UI)
     - JSON Output
-- Thymeleaf and HTMX
-    - POST for Form (and model)
 - CI/CD Process
     - Clean
     - Any code generation for REST? (stubs/skeletons)?
@@ -27,6 +25,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
         - ...
         - Deploy to production!
 - Clean up and add mocks to testing
+- Thymeleaf and HTMX
 - AOT, CDS, Native Images
 - Zipkin?
 - Combine (this) server and client into one Repo, nested/multi-project Gradle?

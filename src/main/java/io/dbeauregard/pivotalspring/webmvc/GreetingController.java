@@ -7,7 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class GreetingController {
@@ -18,11 +21,18 @@ public class GreetingController {
     public String getGreeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
             Model model, Authentication auth) {
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        log.info("/greeting called with principal {}", userDetails.getUsername());
+        log.info("/greeting called with param: {}, and principal: {}", name, userDetails.getUsername());
         model.addAttribute("name", name);
         model.addAttribute("username", userDetails.getUsername());
         model.addAttribute("roles", userDetails.getAuthorities());
+        model.addAttribute("greetingmodel", new GreetingModel());
         return "greeting";
     }
 
+    @PostMapping("/greeting")
+    public String postMethodName(@ModelAttribute GreetingModel greetingModel, Model model) {
+        log.info("Greeting POST called w/: {}", greetingModel.getData());
+        model.addAttribute("greetingmodel", new GreetingModel());
+        return "greeting";
+    }
 }

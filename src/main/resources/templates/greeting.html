@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>Hello World!</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
-    <body>
-        <h1>Hello world!</h1>
-        <p th:text="|Hello, ${name}!|" />
-        <p th:text="|UserName: ${username}|" />
-        <p th:text="|Roles: ${roles}|" />
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </body>
+
+<head>
+    <title>Hello World!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Hello world!</h1>
+    <p th:text="|Hello, ${name}!|" />
+    <p th:text="|UserName: ${username}|" />
+    <p th:text="|Roles: ${roles}|" />
+
+    <!-- Get Input Message -->
+    <form name="nameform" action="#" method="get">
+        <div class="formfield">
+            <label for="name">Hello Name:  </label>
+            <input type="text" name="name" id="name">
+            <button type="submit" name="submitget">Submit [GET]</button>
+        </div>
+    </form>
+    <br>
+    <form name="postForm" action="#" th:action="@{/greeting}" method="post" th:object="${greetingmodel}">
+        <label for="input">Input:  </label>
+            <input type="text" name="input" id="input" th:field="*{data}">
+        <input type="submit" name="submitpost" value="Submit [POST]" />
+    </form>
+
+    <br><br>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" />
+    </form>
+</body>
+
 </html>

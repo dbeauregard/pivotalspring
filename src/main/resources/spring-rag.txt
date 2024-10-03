@@ -291,5 +291,3 @@ Azure OpenAI
 github.com/rd-1-2022/ai-azure-openai-helloworld
 
 github.com/Azure-Samples/spring-ai-azure-workshop
-
-AI Concepts Spring AI API

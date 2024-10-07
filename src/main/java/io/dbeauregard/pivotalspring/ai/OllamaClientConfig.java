@@ -41,7 +41,7 @@ public class OllamaClientConfig {
     @Value("${io.dbeauregard.pivotalspring.ragprompt}")
     private String ragPrompt;
 
-    @Value("classpath:spring-rag.txt") 
+    @Value("classpath:spring-rag.txt")
     private Resource springRagDoc;
 
     public OllamaClientConfig(ChatClient.Builder builder, VectorStore vectorStore, HouseRepository repo) {
@@ -58,9 +58,9 @@ public class OllamaClientConfig {
         this.chatClient = builder
                 .defaultSystem(basePrompt) // Prompt
                 .defaultAdvisors(memory, // Chat Memory
-                        new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), ragPrompt), // RAG
+                        new QuestionAnswerAdvisor(vectorStore),// SearchRequest.defaults(), ragPrompt), // RAG
                         new SimpleLoggerAdvisor()) // Logging, "add toward end"
-                .defaultFunctions("getHouses") // Function
+                // .defaultFunctions("getHouses") // Function
                 .build();
 
         // Add the documents to PGVector
@@ -83,7 +83,7 @@ public class OllamaClientConfig {
     @Description("This is a list of houses for sale")
     Function<Reqeust, Iterable<HouseEntity>> getHouses() {
         return Reqeust -> {
-            log.info("Function Called with. {}", Reqeust);
+            log.info("My AI Function Called with. {}", Reqeust);
             return repo.findAll();
         };
     }

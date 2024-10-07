@@ -41,6 +41,16 @@ public class OllamaClientConfig {
     @Value("${io.dbeauregard.pivotalspring.ragprompt}")
     private String ragPrompt;
 
+    private static final String DEFAULT_USER_TEXT_ADVISE = """
+            Context information is below.
+            ---------------------
+            {question_answer_context}
+            ---------------------
+            Given the context information and the conversation memory from the MEMORY section and not prior knowledge,
+            reply to the user comment. If the answer is not in the context, inform
+            the user that you can't answer the question.
+            """;
+
     @Value("classpath:spring-rag.txt")
     private Resource springRagDoc;
 
@@ -58,19 +68,19 @@ public class OllamaClientConfig {
         this.chatClient = builder
                 .defaultSystem(basePrompt) // Prompt
                 .defaultAdvisors(memory, // Chat Memory
-                        new QuestionAnswerAdvisor(vectorStore),// SearchRequest.defaults(), ragPrompt), // RAG
+                        // new QuestionAnswerAdvisor(vectorStore),// SearchRequest.defaults(), DEFAULT_USER_TEXT_ADVISE), // RAG
                         new SimpleLoggerAdvisor()) // Logging, "add toward end"
-                // .defaultFunctions("getHouses") // Function
+                .defaultFunctions("getHouses") // Function
                 .build();
 
-        // Add the documents to PGVector
-        vectorStore.write(
-                new TokenTextSplitter().transform(
-                        new TextReader(springRagDoc).read()));
+        // // Add the documents to PGVector
+        // vectorStore.write(
+        //         new TokenTextSplitter().transform(
+        //                 new TextReader(springRagDoc).read()));
 
-        // Retrieve documents similar to a query
-        List<Document> results = vectorStore.similaritySearch(SearchRequest.query("Spring").withTopK(5));
-        log.info("VectorStore Result: {}", results);
+        // // Retrieve documents similar to a query
+        // List<Document> results = vectorStore.similaritySearch(SearchRequest.query("Spring").withTopK(5));
+        // log.info("VectorStore Result: {}", results);
     }
 
     @Bean

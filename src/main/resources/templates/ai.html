@@ -20,21 +20,45 @@
     <h2>Welcome to Spring AI with Ollama!</h2>
 
     <!-- Get Input Message -->
-    <form name="msgform" action="#" method="get">
+    <form id="msgform" name="msgform" action="#" method="get" th:action="@{/ai}">
         <div class="formfield">
             <label for="message">Chat Message: </label>
-            <textarea name="message" id="message" style="width:500px; height:50px; margin-left: 1em;"></textarea>
+            <textarea name="message" id="message" style="width:500px; height:50px; margin-left: 1em;"
+                th:text="${param.message}"></textarea>
         </div>
-        <br>
+        
         <div class="divvy">
-            <button type="submit" name="submit">Submit</button>
+            <i>Press Enter to submit, Shift+Enter for a newline.</i> <br><br>
+            <input type="submit" name="submitForm" value="Submit"></input>
+            &nbsp;
+            <button type="button" onclick="document.getElementById('message').value = ''" ; return false;>Clear</button>
         </div>
     </form>
 
-    <br><br>
-
     <!-- AI Output Text -->
+    <br><br>
     <pre th:text="|Result: ${result}|" />
+
+    <!-- Javascript -->
+    <script>
+        function submitOnEnter(event) {
+            if (event.which === 13 && !event.shiftKey) {
+                if (!event.repeat) {
+                    // const newEvent = new Event("submit", { cancelable: true });
+                    // event.target.form.dispatchEvent(newEvent);
+                    document.getElementById("msgform").submit();
+                }
+                event.preventDefault(); // Prevents the addition of a new line in the text field
+            }
+        }
+
+        document.getElementById("message").addEventListener("keydown", submitOnEnter);
+
+        document.getElementById("msgform").addEventListener("submit", (event) => {
+            // event.preventDefault();
+            console.log("form submitted");
+        });
+    </script>
 </body>
 
 </html>

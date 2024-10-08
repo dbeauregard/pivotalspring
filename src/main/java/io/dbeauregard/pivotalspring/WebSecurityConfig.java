@@ -21,7 +21,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/","/index.html","/houses","/houses/**").permitAll()
                         .requestMatchers("/actuator/**","/error","/v3/**","/swagger-ui*/**").permitAll()
-                        .requestMatchers("/ai").permitAll()
+                        .requestMatchers("/ai","/ai/structured", "/ai/stream").permitAll()
                         .anyRequest().authenticated()) //Default, require Auth (best practice)
                 .httpBasic(withDefaults())
                 .formLogin(withDefaults())

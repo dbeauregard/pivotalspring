@@ -4,10 +4,9 @@ The intent of this is a reasonably best practice/architecture proof of concept t
 scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI process.
 
 ## Todo:
-- Spring AI
-    - Prompt tuning for RAG
-    - Streaming (To UI)
-    - JSON Output
+- AI
+    - Cleanup and Prompt Tuning
+    - Streaming Response 
 - CI/CD Process
     - Clean
     - Any code generation for REST? (stubs/skeletons)?
@@ -37,6 +36,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - [Add One] http post localhost:8080/houses address='1234 street' price=123456
 - [Update One] http put localhost:8080/houses/6 address="4321" price=4321111 id=6
 - [Delete One] http delete localhost:8080/houses/5
+- [Structured Output] http get localhost:8080/ai/structured message=="show largest house"
 - * may need to add parameters: 'bdrm=3 bath=2 sqft=2000'
 
 ## Building & Running Locally

@@ -29,7 +29,7 @@ import io.dbeauregard.pivotalspring.HouseRepository;
 @Profile("ai")
 public class OllamaClientConfig {
 
-    private final ChatClient.Builder builder;
+    private ChatClient.Builder builder;
     private ChatClient chatClient;
     private static final Logger log = LoggerFactory.getLogger(OllamaClientConfig.class);
     private final VectorStore vectorStore;
@@ -44,15 +44,8 @@ public class OllamaClientConfig {
     @Value("${io.dbeauregard.pivotalspring.enablerag}")
     private Boolean enablerag;
 
-    private static final String DEFAULT_USER_TEXT_ADVISE = """
-            Context information is below.
-            ---------------------
-            {question_answer_context}
-            ---------------------
-            Given the context information and the conversation memory from the MEMORY section and not prior knowledge,
-            reply to the user comment. If the answer is not in the context, inform
-            the user that you can't answer the question.
-            """;
+    @Value("${io.dbeauregard.pivotalspring.enablefunctions}")
+    private Boolean enableFunctions;
 
     @Value("classpath:spring-rag.txt")
     private Resource springRagDoc;
@@ -65,19 +58,27 @@ public class OllamaClientConfig {
 
     private void buildChatClient() {
         if (chatClient != null)
-            return;
+            return; // already exists
 
         PromptChatMemoryAdvisor memory = new PromptChatMemoryAdvisor(new InMemoryChatMemory());
-        this.chatClient = builder
-                .defaultSystem(basePrompt) // Prompt
-                .defaultAdvisors(memory, // Chat Memory
-                        // new QuestionAnswerAdvisor(vectorStore),// SearchRequest.defaults(), DEFAULT_USER_TEXT_ADVISE), // RAG
-                        new SimpleLoggerAdvisor()) // Logging, "add toward end"
-                .defaultFunctions("getHouses") // Function
-                .build();
+        builder = builder.defaultSystem(basePrompt) // Prompt
+                .defaultAdvisors(memory); // Chat Memory
 
-        if(enablerag) 
+        // RAG
+        if (enablerag) {
             loadEmbeddings();
+            builder = builder.defaultAdvisors(new QuestionAnswerAdvisor(vectorStore));// SearchRequest.defaults(),
+                                                                                      // ragPrompt),
+                                                                                      // //RAG
+        }
+
+        // Functions
+        if (enableFunctions)
+            builder = builder.defaultFunctions("getHouses"); // Function
+
+        builder = builder.defaultAdvisors(new SimpleLoggerAdvisor()); // Logging, "add toward end"
+        this.chatClient = builder.build();
+
     }
 
     private void loadEmbeddings() {

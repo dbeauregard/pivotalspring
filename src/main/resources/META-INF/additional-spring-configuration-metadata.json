@@ -12,6 +12,11 @@
   {
     "name": "io.dbeauregard.pivotalspring.enablerag",
     "type": "java.lang.String",
-    "description": "Enable RAG and loading of Vector Datastore.'"
+    "description": "Enable RAG and loading of Vector Datastore."
+  },
+  {
+    "name": "io.dbeauregard.pivotalspring.enablefunctions",
+    "type": "java.lang.String",
+    "description": "Enable AI Functions."
   }
 ]}

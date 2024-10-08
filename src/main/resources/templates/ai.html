@@ -24,14 +24,15 @@
         <div class="formfield">
             <label for="message">Chat Message: </label>
             <textarea name="message" id="message" style="width:500px; height:50px; margin-left: 1em;"
-                th:text="${param.message}"></textarea>
+                th:text="${param.message}">default</textarea>
         </div>
-        
+
         <div class="divvy">
             <i>Press Enter to submit, Shift+Enter for a newline.</i> <br><br>
             <input type="submit" name="submitForm" value="Submit"></input>
             &nbsp;
-            <button type="button" onclick="document.getElementById('message').value = ''" ; return false;>Clear</button>
+            <!-- <button type="button" onclick="document.getElementById('message').value = ''" ; return false;>Clear</button> -->
+            <button type="button" onclick="clearFunction();">Clear</button>
         </div>
     </form>
 
@@ -50,10 +51,24 @@
             }
         }
 
+        function clearFunction() {
+            let msg = document.getElementById("message");
+            msg.value = '';
+            msg.focus();
+            return false;
+        }
+
+        //Anonymous function invoked on load.
+        (function () {
+            let msg = document.getElementById("message");
+            msg.selectionStart = msg.selectionEnd = msg.value.length;
+            msg.focus();
+        })();
+
         document.getElementById("message").addEventListener("keydown", submitOnEnter);
 
         document.getElementById("msgform").addEventListener("submit", (event) => {
-            // event.preventDefault();
+            // event.preventDefault();  //Disable Submission (for testing)
             console.log("form submitted");
             // console.log(event)
         });

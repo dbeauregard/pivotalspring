@@ -41,6 +41,9 @@ public class OllamaClientConfig {
     @Value("${io.dbeauregard.pivotalspring.ragprompt}")
     private String ragPrompt;
 
+    @Value("${io.dbeauregard.pivotalspring.enablerag}")
+    private Boolean enablerag;
+
     private static final String DEFAULT_USER_TEXT_ADVISE = """
             Context information is below.
             ---------------------
@@ -73,14 +76,19 @@ public class OllamaClientConfig {
                 .defaultFunctions("getHouses") // Function
                 .build();
 
-        // // Add the documents to PGVector
-        // vectorStore.write(
-        //         new TokenTextSplitter().transform(
-        //                 new TextReader(springRagDoc).read()));
+        if(enablerag) 
+            loadEmbeddings();
+    }
 
-        // // Retrieve documents similar to a query
-        // List<Document> results = vectorStore.similaritySearch(SearchRequest.query("Spring").withTopK(5));
-        // log.info("VectorStore Result: {}", results);
+    private void loadEmbeddings() {
+        // Add the documents to PGVector
+        vectorStore.write(
+                new TokenTextSplitter().transform(
+                        new TextReader(springRagDoc).read()));
+
+        // Retrieve documents similar to a query
+        List<Document> results = vectorStore.similaritySearch(SearchRequest.query("Spring").withTopK(5));
+        log.info("VectorStore Result: {}", results);
     }
 
     @Bean

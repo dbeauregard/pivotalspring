@@ -5,7 +5,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 
 ## Todo:
 - Spring AI
-    - Prompt tuning
+    - Prompt tuning for RAG
     - Streaming (To UI)
     - JSON Output
 - CI/CD Process

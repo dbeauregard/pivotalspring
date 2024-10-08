@@ -8,5 +8,10 @@
     "name": "io.dbeauregard.pivotalspring.ragprompt",
     "type": "java.lang.String",
     "description": "The AI RAG Prompt."
+  },
+  {
+    "name": "io.dbeauregard.pivotalspring.enablerag",
+    "type": "java.lang.String",
+    "description": "Enable RAG and loading of Vector Datastore.'"
   }
 ]}

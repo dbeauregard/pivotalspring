@@ -6,7 +6,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 ## Todo:
 - AI
     - Cleanup and Prompt Tuning
-    - Streaming Response 
+    - Streaming Response to UI
 - CI/CD Process
     - Clean
     - Any code generation for REST? (stubs/skeletons)?

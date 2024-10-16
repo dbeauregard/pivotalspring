@@ -1,4 +1,4 @@
-# Pivotal Spring Demo Applicaiton
+# Pivotal Spring Demo Applicaiton [![Java CI with Gradle](https://github.com/dbeauregard/pivotalspring/actions/workflows/gradle.yml/badge.svg?branch=main)](https://github.com/dbeauregard/pivotalspring/actions/workflows/gradle.yml)
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 The intent of this is a reasonably best practice/architecture proof of concept that 
 scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI process.

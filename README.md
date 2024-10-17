@@ -7,23 +7,14 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
-- CI/CD Process
-    - Clean
-    - Any code generation for REST? (stubs/skeletons)?
-    - Compile (javac)
-    - Jar (aka Package, `jar`, fat-jar)
-    - Run Tests (Junit) - post results
-    - Javadoc/other docs (API? Swagger?)
-    - Linting (code quality, find bugs, formatting, etc.)
+- CI
+    - Linting (find/spot-bugs, code coverage [JaCoCo].)
     - Security Scanning (Static, dependancy, container)
-    - Post Jar to artifact repository
-    - Build OCI Container Image (CI or CD?)
-    - Post OCI container image to Repo
-    - Security Scanning of container image 
-    - CD...
-        - ...
-        - Deploy to production!
-- Clean up and add mocks to testing
+- CD
+    - Build Container
+    - Push Container to OCI repo (e.g., Dockerhub)
+    - Deploy to production
+- Clean up and add mocks (Mockito) to testing
 - Thymeleaf and HTMX
 - AOT, CDS, Native Images
 - Zipkin?
@@ -59,3 +50,21 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - (new terminal, will install model first time) ollama run llama3.1 (or llama3.2) [`ctrl + d` to exit]
 - (Open WebUI) docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 - [local postgres/pgvector] ./gradlew bootRun --args='--spring.profiles.active=psql,ai'
+
+## Reference CI Process
+- CI/CD Process
+    - Clean
+    - Any code generation for REST (stubs/skeletons)?
+    - Compile (javac)
+    - Jar (aka Package, `jar`, fat-jar)
+    - Run Tests (Junit) - post results
+    - Javadoc/other docs (API? Swagger?)
+    - Linting (checkstyle, find/spot-bugs, code coverage [JaCoCo], etc.)
+    - Security Scanning (Static, dependancy, container)
+    - Post Jar to artifact repository
+    - Build OCI Container Image (CI or CD?)
+    - Post OCI container image to Repo
+    - Security Scanning of container image 
+    - CD...
+        - ...
+        - Deploy to production!

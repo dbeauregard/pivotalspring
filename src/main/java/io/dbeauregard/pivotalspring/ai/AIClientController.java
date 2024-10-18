@@ -13,6 +13,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import reactor.core.publisher.Flux;
+
 @Controller
 public class AIClientController {
 
@@ -58,11 +60,26 @@ public class AIClientController {
         model.addAttribute("result", result);
         if (msg != null) {
             Assert.notNull(chatClient, "ChatClient not configured (null).");
-            List<House> hl = chatClient.prompt().user(msg).call().entity(new ParameterizedTypeReference<List<House>>(){});
+            List<House> hl = chatClient.prompt().user(msg).call().entity(new ParameterizedTypeReference<List<House>>() {
+            });
             hl.forEach(h -> log.info("AI Result: {}", h));
             model.addAttribute("result", hl);
         }
 
+        model.addAttribute("message", new Message());
+        return "ai";
+    }
+
+    @GetMapping("/ai/stream")
+    public String getAiStreaming(@RequestParam(name = "message", required = false) String msg,
+            Model model)
+            throws Exception {
+        log.info("AI Streaming Called with: {}", msg);
+
+        // This wont work
+        Flux<String> result = chatClient.prompt().user(msg).stream().content();
+
+        model.addAttribute("result", result);
         model.addAttribute("message", new Message());
         return "ai";
     }

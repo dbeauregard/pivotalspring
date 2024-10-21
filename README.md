@@ -57,7 +57,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
     - Any code generation for REST (stubs/skeletons)?
     - Compile (javac)
     - Jar (aka Package, `jar`, fat-jar)
-    - Run Tests (Junit) - post results
+    - Run Unit and Component Tests (Junit) - post results
     - Javadoc/other docs (API? Swagger?)
     - Linting (checkstyle, find/spot-bugs, code coverage [JaCoCo], etc.)
     - Security Scanning (Static, dependancy, container)

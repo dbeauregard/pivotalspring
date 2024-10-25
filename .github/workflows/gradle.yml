@@ -53,7 +53,13 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: SpotBugs Report
-        path: build/reports/spotbugs/main.html
+        path: build/reports/spotbugs/*.html
+
+    - name: Upload Jacoco
+      uses: actions/upload-artifact@v4
+      with:
+        name: Jacoco Report
+        path: /Users/dbeauregard/Workspace/pivotalspring/build/reports/jacoco/test/html/*
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle

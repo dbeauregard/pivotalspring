@@ -8,12 +8,11 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
 - CI
-    - Linting (find/spot-bugs, code coverage [JaCoCo].)
     - Security Scanning (Static, dependancy, container)
 - CD
-    - Build Container
+    - Build Container [Done via Gradle-Boot]
     - Push Container to OCI repo (e.g., Dockerhub)
-    - Deploy to production
+    - Deploy to production (CodeRun?)
 - Clean up and add mocks (Mockito) to testing
 - Thymeleaf and HTMX
 - AOT, CDS, Native Images

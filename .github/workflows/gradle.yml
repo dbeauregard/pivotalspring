@@ -52,7 +52,7 @@ jobs:
     - name: Upload SpotBugs
       uses: actions/upload-artifact@v4
       with:
-        name: BootJar
+        name: SpotBugs Report
         path: build/reports/spotbugs/main.html
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in

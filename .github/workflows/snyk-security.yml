@@ -64,9 +64,7 @@ jobs:
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Open Source (SCA) test
-        run: snyk test
-        with:
-          args: --sarif-file-output=snyk-sca.sarif
+        run: snyk test > snyk-sca.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

@@ -10,14 +10,13 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - CI
     - Security Scanning (Static, dependancy, container)
 - CD
-    - Build Container [Done via Gradle-Boot]
     - Push Container to OCI repo (e.g., Dockerhub)
     - Deploy to production (CodeRun?)
 - Clean up and add mocks (Mockito) to testing
 - Thymeleaf and HTMX
 - AOT, CDS, Native Images
 - Zipkin?
-- Combine (this) server and client into one Repo, nested/multi-project Gradle?
+- Combine (this) server and client into one Repo, nested/multi-project Gradle
 
 ## Testing (Postman/http)
 - [Get All] http localhost:8080/houses

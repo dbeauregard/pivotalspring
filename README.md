@@ -7,10 +7,9 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
-- CI
-    - Security Scanning (Static, dependancy, container)
 - CD
     - Push Container to OCI repo (e.g., Dockerhub)
+    - Scan Container with Snyk
     - Deploy to production (CodeRun?)
 - Clean up and add mocks (Mockito) to testing
 - Thymeleaf and HTMX

@@ -52,7 +52,7 @@ jobs:
         # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
         # Use || true to not fail the pipeline
       - name: Snyk Code (SAST) test
-        run: snyk code test --report --sarif | tee snyk-code.sarif # || true
+        run: snyk code test --project-name=pivotalspring --report --sarif | tee snyk-code.sarif # || true
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

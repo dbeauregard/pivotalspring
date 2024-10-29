@@ -78,11 +78,10 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push
-      uses: docker/build-push-action@v6
-      with:
-          push: true
-          build: false
-          tags: dbeauregard/pivotalspring:0.0.1-SNAPSHOT-M    
+      # uses: docker/build-push-action@v6
+      run: |
+        docker tag pivotalspring:0.0.1-SNAPSHOT dbeauregard/pivotalspring:0.0.1-SNAPSHOT
+        docker push dbeauregard/pivotalspring:0.0.1-SNAPSHOT
 
   dependency-submission:
 

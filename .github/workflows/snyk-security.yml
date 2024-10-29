@@ -75,12 +75,23 @@ jobs:
       #   # Build the docker image for testing
       # - name: Build a Docker image
       #   run: docker build -t your/image-to-test .
-      #   # Runs Snyk Container (Container and SCA) analysis and uploads result to Snyk.
-      # - name: Snyk Container monitor
-      #   run: snyk container monitor your/image-to-test --file=Dockerfile
-      #   continue-on-error: true
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      # Pull the docker image for testing
+      # - name: Login to Docker Hub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # - name: Build and push
+      #   run: docker pull dbeauregard/pivotalspring:0.0.1-SNAPSHOT
+      
+      # Runs Snyk Container (Container and SCA) analysis and uploads result to Snyk.
+      - name: Snyk Container test
+        run: snyk container test dbeauregard/pivotalspring:0.0.1-SNAPSHOT # --file=Dockerfile
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
         # Push the Snyk Code results into GitHub Code Scanning tab
       - name: Upload result to GitHub Code Scanning

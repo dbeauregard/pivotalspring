@@ -8,7 +8,6 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
 - CD
-    - Push Container to OCI repo (e.g., Dockerhub)
     - Scan Container with Snyk
     - Deploy to production (CodeRun?)
 - Clean up and add mocks (Mockito) to testing

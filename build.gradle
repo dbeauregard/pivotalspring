@@ -6,6 +6,7 @@ plugins {
 	id 'com.github.spotbugs' version "6.0.25"
 	id 'checkstyle'
 	id 'jacoco'
+	id("maven-publish")
 }
 
 group = 'io.dbeauregard'
@@ -81,4 +82,22 @@ tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
       enabled = true
     }
   }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/dbeauregard/pivotalspring")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }

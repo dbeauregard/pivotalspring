@@ -2,7 +2,7 @@ name: CD-CloudRun
 
 on:
     release:
-      types: [released]
+      types: [released, edited]
 
 jobs:
   cd-cloudrun:

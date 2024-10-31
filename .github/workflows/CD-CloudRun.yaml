@@ -16,7 +16,8 @@ jobs:
 
     - uses: 'google-github-actions/auth@v2'
       with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        token_format: 'access_token'
+        # project_id: ${{ secrets.GCP_PROJECT_ID }}
         workload_identity_provider: 'projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github/providers/my-repo'
         service_account: ${{ secrets.GCP_SERVICEACCOUNT }}
 

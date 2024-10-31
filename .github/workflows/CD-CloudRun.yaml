@@ -18,12 +18,13 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         workload_identity_provider: 'projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github/providers/my-repo'
-        # service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+        service_account: ${{ GCP_SERVICEACCOUNT }}
 
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
         service: 'pivotalspring-prod'
+        region: us-west1
         image: 'dbeauregard/pivotalspring:0.0.1-SNAPSHOT'
 
     - name: 'Show output'

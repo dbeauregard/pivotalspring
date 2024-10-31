@@ -8,6 +8,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
 - CD
+    - Versioning
     - Deploy container from dockerhub to production (CodeRun?)
 - Clean up and add mocks (Mockito) to testing
 - Thymeleaf and HTMX

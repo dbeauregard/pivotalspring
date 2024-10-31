@@ -1,0 +1,30 @@
+name: Java CI with Gradle
+
+on:
+    release:
+      types: [released]
+
+jobs:
+  cd-cloudrun:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - uses: 'actions/checkout@v4' #GCP required
+
+    - uses: 'google-github-actions/auth@v2'
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        workload_identity_provider: 'projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github/providers/my-repo'
+        # service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+
+    - id: 'deploy'
+      uses: 'google-github-actions/deploy-cloudrun@v2'
+      with:
+        service: 'pivotalspring-prod'
+        image: 'dbeauregard/pivotalspring:0.0.1-SNAPSHOT'
+
+    - name: 'Show output'
+      run: 'curl "${{ steps.deploy.outputs.url }}"'

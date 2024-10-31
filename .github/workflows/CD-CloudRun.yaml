@@ -14,6 +14,12 @@ jobs:
     steps:
     - uses: 'actions/checkout@v4' #GCP required
 
+    - name: Set the environment variable
+      run: echo WIP=${{ secrets.GCP_PROJECT_ID }} >> $GITHUB_ENV
+
+    - name: Check the environment variable
+      run: echo $WIP
+
     - uses: 'google-github-actions/auth@v2'
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}

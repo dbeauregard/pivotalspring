@@ -9,7 +9,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
     - Streaming Response to UI
 - CD
     - Versioning
-    - Deploy container from dockerhub to production (CodeRun?)
+    - Deploy container from dockerhub to production (CodeRun)
 - Clean up and add mocks (Mockito) to testing
 - Thymeleaf and HTMX
 - AOT, CDS, Native Images

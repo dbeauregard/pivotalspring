@@ -38,3 +38,6 @@ out/
 
 ### GCP ###
 gha-creds-*.json
+
+### Tanzu ###
+.advisor

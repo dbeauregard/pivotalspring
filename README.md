@@ -34,8 +34,8 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 
 ## Running in Docker
 - gradle clean build
-- docker build --build-arg JAR_FILE=build/libs/\*.jar -t dbeauregard/pivotalspring .
-- docker run -p 8080:8080 dbeauregard/pivotalspring
+- docker build --build-arg JAR_FILE=build/libs/\*.jar -t dbeauregard/pivotalspring-server-dockerfile .
+- docker run -p 8080:8080 dbeauregard/pivotalspring-server-dockefile
 
 ## Running in Kubernetes
 - kubectl deploy -f kubernetes.yaml
@@ -47,7 +47,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - (Open WebUI) docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 - [local postgres/pgvector] ./gradlew bootRun --args='--spring.profiles.active=psql,ai'
 
-## Reference CI Process
+## Reference CI/CD Process
 - CI/CD Process
     - Clean
     - Any code generation for REST (stubs/skeletons)?

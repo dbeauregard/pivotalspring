@@ -74,7 +74,7 @@ jobs:
       
       # Runs Snyk Container (Container and SCA) analysis and uploads result to Snyk.
       - name: Snyk Container test
-        run: snyk container test dbeauregard/pivotalspring:0.0.1-SNAPSHOT --sarif | tee snyk-oci.sarif # --file=Dockerfile
+        run: snyk container test dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT --sarif | tee snyk-oci.sarif # --file=Dockerfile
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

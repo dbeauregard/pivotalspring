@@ -1,4 +1,4 @@
-# Pivotal Spring Demo Applicaiton [![CI with Gradle](https://github.com/dbeauregard/pivotalspring/actions/workflows/CI-gradle.yml/badge.svg?branch=main)](https://github.com/dbeauregard/pivotalspring/actions/workflows/CI-gradle.yml)
+# Pivotal Spring Demo Applicaiton [![CI with Gradle](https://github.com/dbeauregard/pivotalspring/actions/workflows/CI-gradle.yml/badge.svg?branch=main)](https://github.com/dbeauregard/pivotalspring/actions/workflows/CI-gradle.yml) [![CD to CloudRun](https://github.com/dbeauregard/pivotalspring/actions/workflows/CD-CloudRun.yaml/badge.svg?branch=main)](https://github.com/dbeauregard/pivotalspring/actions/workflows/CD-CloudRun.yaml)
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 The intent of this is a reasonably best practice/architecture proof of concept that 
 scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI process.

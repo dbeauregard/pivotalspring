@@ -15,6 +15,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - CD
     - Versioning
     - Deploy container from dockerhub to production (CodeRun)
+- Verify the Snyk OSS test (SCA)
 - Clean up and add mocks (Mockito) to testing
 - Thymeleaf and HTMX
 - AOT, CDS, Native Images

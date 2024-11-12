@@ -3,7 +3,12 @@ This is a 'pivotal' (a.k.a., key) demo application for Spring.
 The intent of this is a reasonably best practice/architecture proof of concept that 
 scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI process.
 
+## Projects
+- Server
+- Client
+
 ## Todo:
+- Combine the client into one (this) Repo, multi-project Gradle
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
@@ -14,7 +19,6 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - Thymeleaf and HTMX
 - AOT, CDS, Native Images
 - Zipkin?
-- Combine (this) server and client into one Repo, nested/multi-project Gradle
 
 ## Testing (Postman/http)
 - [Get All] http localhost:8080/houses
@@ -35,7 +39,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 ## Running in Docker
 - gradle clean build
 - docker build --build-arg JAR_FILE=build/libs/\*.jar -t dbeauregard/pivotalspring-server-dockerfile .
-- docker run -p 8080:8080 dbeauregard/pivotalspring-server-dockefile
+- docker run -p 8080:8080 dbeauregard/pivotalspring-server-dockerfile:latest
 
 ## Running in Kubernetes
 - kubectl deploy -f kubernetes.yaml

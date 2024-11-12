@@ -1,2 +1,3 @@
 rootProject.name = 'pivotalspring'
 include 'server'
+include 'client'

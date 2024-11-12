@@ -49,8 +49,8 @@ jobs:
     - name: Upload Client Jar
       uses: actions/upload-artifact@v4
       with:
-        name: Server-BootJar
-        path: server/build/libs/server-*-SNAPSHOT.jar
+        name: Client-BootJar
+        path: client/build/libs/client-*-SNAPSHOT.jar
 
     - name: Upload SpotBugs
       uses: actions/upload-artifact@v4

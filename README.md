@@ -8,6 +8,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - [Client](client)
 
 ## Todo:
+- Combine common Gradle config
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI

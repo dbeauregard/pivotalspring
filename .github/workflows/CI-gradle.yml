@@ -80,7 +80,7 @@ jobs:
 
     - name: Build and push
       run: |
-        docker tag server:0.0.1-SNAPSHOT dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT
+        docker tag pivotalspring-server:0.0.1-SNAPSHOT dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT
         docker push dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT
 
   dependency-submission:

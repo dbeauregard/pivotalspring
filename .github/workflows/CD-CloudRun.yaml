@@ -1,4 +1,4 @@
-name: CD-CloudRun
+name: CD with CloudRun
 
 on:
     release:

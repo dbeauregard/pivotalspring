@@ -8,19 +8,17 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - [Client](client)
 
 ## Todo:
-- Combine common Gradle config
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
 - CD
     - Versioning
     - Deploy container from dockerhub to production (CodeRun)
-- Verify the Snyk OSS test (SCA)
-- Publish Client Jar to GitHub Repo
 - Clean up and add mocks (Mockito) to testing
-- Thymeleaf and HTMX
-- AOT, CDS, Native Images
-- Zipkin?
+- Future epics to explore: 
+    - Thymeleaf and HTMX
+    - AOT, CDS, Native Images
+    - Zipkin
 
 ## Testing (Postman/http)
 - [Get All] http localhost:8080/houses

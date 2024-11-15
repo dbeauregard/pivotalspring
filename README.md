@@ -2,6 +2,7 @@
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 The intent of this is a reasonably best practice/architecture proof of concept that 
 scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI process.
+This includes two subprojects, one for the server side and one for the client.
 
 ## Projects/Apps
 - [Server](server)
@@ -31,10 +32,10 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - * may need to add parameters: 'bdrm=3 bath=2 sqft=2000'
 
 ## Building & Running Locally
-(uses docker compose; docker must be running)
+(uses docker compose for some tests; docker must be running)
 - ./gradlew clean build
 - ./gradlew bootRun 
-- [local postgres/pgvector] ./gradlew bootRun --args='--spring.profiles.active=psql'
+- [w/ local postgres] ./gradlew bootRun --args='--spring.profiles.active=psql'
 
 ## Running in Docker
 - gradle clean build
@@ -42,6 +43,7 @@ scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI pro
 - docker run -p 8080:8080 dbeauregard/pivotalspring-server-dockerfile:latest
 
 ## Running in Kubernetes
+- docker image must be pushed to dockerhub if not already
 - kubectl deploy -f kubernetes.yaml
 
 ## Spring AI with Ollama

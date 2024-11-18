@@ -25,7 +25,7 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()) //Default, require Auth (best practice)
                 .httpBasic(withDefaults())
                 .formLogin(withDefaults())
-                .csrf(AbstractHttpConfigurer::disable); //TODO: Investigate this and move to client side
+                .csrf(AbstractHttpConfigurer::disable); //Potential Security Risk for browser based clients
         return http.build();
     }
 

@@ -71,7 +71,6 @@ public class TestContainersTest {
                 .andExpect(jsonPath("$.price").isNotEmpty());
     }
 
-    // TODO: is this necessary, or is there a better way?
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);

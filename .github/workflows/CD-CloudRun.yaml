@@ -27,6 +27,7 @@ jobs:
         service: 'pivotalspring-prod1'
         region: us-west1
         image: 'docker.io/dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT'
+        # increase memory and other settings
 
     - name: 'Show output'
       run: 'curl "${{ steps.deploy.outputs.url }}"'

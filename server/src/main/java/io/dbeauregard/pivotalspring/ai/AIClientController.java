@@ -60,8 +60,7 @@ public class AIClientController {
         model.addAttribute("result", result);
         if (msg != null) {
             Assert.notNull(chatClient, "ChatClient not configured (null).");
-            List<House> hl = chatClient.prompt().user(msg).call().entity(new ParameterizedTypeReference<List<House>>() {
-            });
+            List<House> hl = chatClient.prompt().user(msg).call().entity(new ParameterizedTypeReference<List<House>>() {});
             hl.forEach(h -> log.info("AI Result: {}", h));
             model.addAttribute("result", hl);
         }

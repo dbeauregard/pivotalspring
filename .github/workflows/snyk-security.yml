@@ -44,25 +44,27 @@ jobs:
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"    
 
-        # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
-        # Use || true to not fail the pipeline
+      # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
+      # Use || true to not fail the pipeline, or continue-on-error
       - name: Snyk Code (SAST) test
         run: snyk code test --sarif | tee snyk-code.sarif # || true
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-        # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
+      # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Open Source (SCA) test
-        run: snyk test --report --sarif | tee snyk-sca.sarif
+        # run: snyk test --report --sarif | tee snyk-sca.sarif
+        run: snyk test --sarif | tee snyk-sca.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-        # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
-        # Use || true to not fail the pipeline.
+      # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
+      # Use || true to not fail the pipeline.
       - name: Snyk IaC test and report
-        run: snyk iac test --report --sarif | tee snyk-iaas.sarif # || true
+        #run: snyk iac test --report --sarif | tee snyk-iaas.sarif # || true
+        run: snyk iac test --sarif | tee snyk-iaas.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

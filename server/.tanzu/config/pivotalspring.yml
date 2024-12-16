@@ -1,0 +1,11 @@
+apiVersion: apps.tanzu.vmware.com/v1
+kind: ContainerApp
+metadata:
+  name: pivotalspring
+spec:
+  build:
+    buildpacks: {}
+    path: ../../src
+  ports:
+  - name: main
+    port: 8080

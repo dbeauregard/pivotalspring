@@ -15,7 +15,6 @@ This includes two subprojects, one for the server side and one for the client.
 - CD
     - Versioning
     - Deploy container from dockerhub to production (CodeRun)
-- Clean up and add mocks (Mockito) to testing
 - Future epics to explore: 
     - Thymeleaf and HTMX
     - AOT, CDS, Native Images

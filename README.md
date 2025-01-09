@@ -36,12 +36,14 @@ This includes two subprojects, one for the server side and one for the client.
 - ./gradlew bootRun 
 - [w/ local postgres] ./gradlew bootRun --args='--spring.profiles.active=psql'
 
-## Running in Docker
-- gradle clean build
-- docker build --build-arg JAR_FILE=build/libs/\*.jar -t dbeauregard/pivotalspring-server-dockerfile .
+## Running in Docker (Server)
+- ./gradlew clean build
+- cd server
+- docker build --build-arg JAR_FILE=build/libs/\*SNAPSHOT.jar -t dbeauregard/pivotalspring-server-dockerfile .
+    - update 'SNAPSHOT' to correct version if needed
 - docker run -p 8080:8080 dbeauregard/pivotalspring-server-dockerfile:latest
 
-## Running in Kubernetes
+## Running in Kubernetes (Server)
 - docker image must be pushed to dockerhub if not already
 - kubectl deploy -f kubernetes.yaml
 

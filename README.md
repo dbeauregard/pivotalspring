@@ -55,17 +55,18 @@ This includes two subprojects, one for the server side and one for the client.
 ## Reference CI/CD Process
 - CI/CD Process
     - Clean
-    - Any code generation for REST (stubs/skeletons)?
+    - Any code generation for REST (stubs/skeletons)? - N/A for now
     - Compile (javac)
     - Jar (aka Package, `jar`, fat-jar)
-    - Run Unit and Component Tests (Junit) - post results
+    - Run Unit and Component Tests (Junit); post results - BuildScan for now
     - Javadoc/other docs (API? Swagger?)
-    - Linting (checkstyle, find/spot-bugs, code coverage [JaCoCo], etc.)
-    - Security Scanning (Static, dependancy, container)
-    - Post Jar to artifact repository
+    - Linting (checkstyle, find/spot-bugs, JaCoCo code coverage, etc.)
+    - Security Scanning (Static, dependancy, container) - Snyk
+    - Post Jar(s) to artifact repository - GitHub Packages
     - Build OCI Container Image (CI or CD?)
-    - Post OCI container image to Repo
-    - Security Scanning of container image 
+    - Post OCI container image to Repo - Dockerhub
+    - Security Scanning of container image - Snyk
     - CD...
-        - ...
-        - Deploy to production!
+        - Set Versions
+        - Deploy to production! - GCP CloudRun
+        - SmokeTest (Future)

@@ -3,7 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.4.1'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'com.gorylenko.gradle-git-properties' version '2.4.2'
-	id 'maven-publish'
+	// id 'maven-publish'
 }
 
 group = 'io.dbeauregard'
@@ -32,20 +32,20 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/dbeauregard/pivotalspring")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-            }
-        }
-    }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
+// publishing {
+//     repositories {
+//         maven {
+//             name = "GitHubPackages"
+//             url = uri("https://maven.pkg.github.com/dbeauregard/pivotalspring")
+//             credentials {
+//                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+//                 password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+//             }
+//         }
+//     }
+//     publications {
+//         gpr(MavenPublication) {
+//             from(components.java)
+//         }
+//     }
+// }

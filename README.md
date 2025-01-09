@@ -45,7 +45,12 @@ This includes two subprojects, one for the server side and one for the client.
 
 ## Running in Kubernetes (Server)
 - docker image must be pushed to dockerhub if not already
-- kubectl deploy -f kubernetes.yaml
+    - docker push dbeauregard/pivotalspring-server-dockerfile (from above)
+- Kind K8s cluster (requires Docker)
+    - kind create cluster [--config kind-config.yaml]
+    - make sure to map ports in kind [30007 here]
+- cd server
+- kubectl create -f kubernetes.yaml
 
 ## Spring AI with Ollama
 - brew install ollama

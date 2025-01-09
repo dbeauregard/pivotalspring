@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: pivotalspring-container
-        image: dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT
+        image: dbeauregard/pivotalspring-server-dockerfile
         ports:
         - name: web-port
           containerPort: 8080

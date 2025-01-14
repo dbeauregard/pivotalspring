@@ -1,2 +1,2 @@
-// Placeholder for Gradle Autocomplete and possibly Snyk SCA
-// See the client & server subproject build.gradle(s)
+// Placeholder file for Gradle Autocomplete and Snyk SCA
+// See the ./client & ./server subproject build.gradle(s)

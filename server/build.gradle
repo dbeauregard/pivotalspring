@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.1'
+	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'com.gorylenko.gradle-git-properties' version '2.4.2'
 	id 'com.github.spotbugs' version "6.0.25"
@@ -11,7 +11,7 @@ plugins {
 }
 
 group = 'io.dbeauregard'
-version = '0.0.1-SNAPSHOT'
+version = project.properties['version-base'] + "-" + project.properties['version-build']
 
 java {
 	toolchain {
@@ -26,7 +26,7 @@ repositories {
 }
 
 ext {
-  set('springAiVersion', "1.0.0-M4")
+  set('springAiVersion', "1.0.0-M5")
   set('openapiVersion', '2.7.0')
 }
 

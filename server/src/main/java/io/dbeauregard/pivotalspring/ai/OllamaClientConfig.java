@@ -66,7 +66,7 @@ public class OllamaClientConfig {
         // RAG
         if (enablerag) {
             loadEmbeddings();
-            builder = builder.defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), ragPrompt));  //RAG
+            builder = builder.defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.builder().build(), ragPrompt));  //RAG
         }
 
         // Functions

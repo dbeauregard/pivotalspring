@@ -102,8 +102,10 @@ public class OllamaClientConfig {
         vectorStore.add(documents);    
 
         // Retrieve documents similar to a query
-        List<Document> results = vectorStore.similaritySearch(SearchRequest.query("square feet size").withTopK(3));
-        results.forEach(r -> log.info("VectorStore Search Result: {}", r));
+        List<Document> results = vectorStore.similaritySearch(SearchRequest.builder().query("square feet size").topK(3).build());
+        if(results != null) {
+            results.forEach(r -> log.info("VectorStore Search Result: {}", r));
+        }
     }
 
     @Bean

@@ -11,12 +11,21 @@ plugins {
 }
 
 group = 'io.dbeauregard'
-version = project.properties['version-base'] + "-" + project.properties['version-build']
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
+}
+
+jar {
+    enabled = false
+}
+
+bootJar {
+    archiveBaseName = rootProject.name + "-" + project.name
+    archiveVersion = project.properties['version-base'] + "-" + project.properties['version-build']
+    archiveClassifier = project.properties['version-archiveClassifier'] //optional
 }
 
 repositories {

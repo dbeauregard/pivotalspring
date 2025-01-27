@@ -44,13 +44,13 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Server-BootJar
-        path: server/build/libs/server-*-SNAPSHOT.jar
+        path: server/build/libs/pivotalspring-server-*.jar
 
     - name: Upload Client Jar
       uses: actions/upload-artifact@v4
       with:
         name: Client-BootJar
-        path: client/build/libs/client-*-SNAPSHOT.jar
+        path: client/build/libs/pivotalspring-client-*.jar
 
     - name: Upload SpotBugs
       uses: actions/upload-artifact@v4

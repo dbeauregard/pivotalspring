@@ -40,9 +40,6 @@ jobs:
         name=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep name: | cut -d " " -f 2-)
         echo "DOCKER-TAG=$name:$version" >> $GITHUB_ENV
 
-    - name: Confirm git commit SHA output
-      run: echo ${{ env.DOCKER-TAG }}
-
     - name: Build (Assemble, Check, Test)
       run: ./gradlew build --scan -Pversion-build=${{ github.run_number }}
 

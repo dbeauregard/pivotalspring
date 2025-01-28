@@ -13,7 +13,6 @@ This includes two subprojects, one for the server side and one for the client.
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
 - CD
-    - OCI Image Versioning
     - GitHub Tagging
     - Deploy OCU container from dockerhub to production (CodeRun)
 - Future epics to explore: 

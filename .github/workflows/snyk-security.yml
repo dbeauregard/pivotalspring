@@ -47,9 +47,12 @@ jobs:
       - name: Set variables
         run: |
           version=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
-          name=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep name: | cut -d " " -f 2-)
-          echo "DOCKER-TAG=$name:$version" >> $GITHUB_ENV
+          name=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep name: | cut -d " " -f 2-)    
+          echo "DOCKER-TAG=$name:SNYK" >> $GITHUB_ENV
           
+      # Special tag for SNYK for now
+      # echo "DOCKER-TAG=$name:$version" >> $GITHUB_ENV
+
       # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
       # Use || true to not fail the pipeline, or continue-on-error
       - name: Snyk Code (SAST) test

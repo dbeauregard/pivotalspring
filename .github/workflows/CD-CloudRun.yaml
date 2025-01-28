@@ -18,6 +18,7 @@ jobs:
     - name: print-env
       run: |
         echo ${{ github.event.release.tag_name }}
+        echo ${{ github.ref_name }}
         echo $GITHUB_ENV
 
     - uses: 'google-github-actions/auth@v2'

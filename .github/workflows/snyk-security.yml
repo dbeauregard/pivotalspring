@@ -48,7 +48,7 @@ jobs:
         run: |
           version=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
           name=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep name: | cut -d " " -f 2-)    
-          echo "DOCKER-TAG=$name:SNYK" >> $GITHUB_ENV
+          echo "DOCKER-TAG=$name:CURRENT" >> $GITHUB_ENV
           
       # Special tag for SNYK for now
       # echo "DOCKER-TAG=$name:$version" >> $GITHUB_ENV

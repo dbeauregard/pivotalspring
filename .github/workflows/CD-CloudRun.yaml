@@ -1,8 +1,11 @@
 name: CD to CloudRun
 
 on:
-    release:
-      types: [released, edited]
+  push: 
+    tags: 
+      -"**"
+    # release:
+      # types: [released, edited]
 
 jobs:
   cd-cloudrun:
@@ -26,7 +29,8 @@ jobs:
       with:
         service: 'pivotalspring-prod1'
         region: us-west1
-        image: 'docker.io/dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT'
+        image: 'docker.io/dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT' #update me to 'latest-ish'
+        metadata: server/cloudrun.yaml # create me
         # increase memory and other settings
 
     - name: 'Show output'

@@ -38,6 +38,7 @@ jobs:
       run: |
         version=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
         name=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep name: | cut -d " " -f 2-)
+        echo "DOCKER-NAME=$name" >> $GITHUB_ENV
         echo "DOCKER-TAG=$name:$version" >> $GITHUB_ENV
 
     - name: Build (Assemble, Check, Test)
@@ -93,7 +94,9 @@ jobs:
     - name: Tag and Push OCI Image
       run: |
         docker tag ${{ env.DOCKER-TAG }} dbeauregard/${{ env.DOCKER-TAG }}
+        docker tag ${{ env.DOCKER-TAG }} dbeauregard/${{ env.DOCKER-NAME }}:CURRENT
         docker push dbeauregard/${{ env.DOCKER-TAG }}
+        docker push dbeauregard/${{ env.DOCKER-NAME }}:CURRENT
 
   dependency-submission:
 

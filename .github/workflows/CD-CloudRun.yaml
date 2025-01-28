@@ -15,6 +15,11 @@ jobs:
     steps:
     - uses: 'actions/checkout@v4' #GCP required
 
+    - name: print-env
+      run: |
+        echo ${{ github.event.release.tag_name }}
+        echo $GITHUB_ENV
+
     - uses: 'google-github-actions/auth@v2'
       with:
         token_format: 'access_token'

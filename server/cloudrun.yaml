@@ -10,7 +10,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: pivotalspring-server-rev-v99
+      name: pivotalspring-server-prod-rev-v99 #BUMP
       annotations:
         autoscaling.knative.dev/minScale: '0'
         autoscaling.knative.dev/maxScale: '10'
@@ -20,7 +20,7 @@ spec:
     spec:
       containerConcurrency: 80
       containers:
-      - image: dbeauregard/pivotalspring-server:CURRENT
+      - image: dbeauregard/pivotalspring-server:CURRENT #BUMP
         livenessProbe:
           failureThreshold: 3
           httpGet:

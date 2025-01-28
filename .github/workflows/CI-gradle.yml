@@ -39,13 +39,19 @@ jobs:
       run: |
           calculatedSha=$(git rev-parse --short ${{ github.sha }})
           echo "SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
-          echo ${{ env.SHORT_SHA }}
+          echo $calculatedSha
+    - name: Output Run ID
+      run: echo ${{ github.run_id }}
+    - name: Output Run Number
+      run: echo ${{ github.run_number }}
+    - name: Output Run Attempt
+      run: echo ${{ github.run_attempt }}
 
     - name: Build (Assemble, Check, Test)
       run: ./gradlew build --scan -Pversion-build=${{ env.SHORT_SHA }}
 
     - name: Build OCI Image 
-      run: ./gradlew bootBuildImage --imageName pivotalspring-server:0.0.1-SNAPSHOT
+      run: ./gradlew bootBuildImage --imageName pivotalspring-server:0.0.1-SNAPSHOT -Pversion-build=${{ env.SHORT_SHA }}
 
     - name: Upload Server Jar
       uses: actions/upload-artifact@v4
@@ -80,7 +86,7 @@ jobs:
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
     - name: Publish to GitHub Packages
-      run: ./gradlew publish
+      run: ./gradlew publish -Pversion-build=${{ env.SHORT_SHA }}
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}

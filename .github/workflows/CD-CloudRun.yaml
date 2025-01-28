@@ -4,8 +4,6 @@ on:
   push: 
     tags: 
       -"**"
-    # release:
-      # types: [released, edited]
 
 jobs:
   cd-cloudrun:
@@ -27,10 +25,12 @@ jobs:
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        service: 'pivotalspring-prod1'
-        region: us-west1
-        image: 'docker.io/dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT' #update me to 'latest-ish'
-        metadata: server/cloudrun.yaml # create me
+        service: 'pivotalspring-server-prod'
+        metadata: server/cloudrun.yaml
+        suffix: v2
+        tag: v2
+        # region: us-west1
+        # image: 'docker.io/dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT'
         # increase memory and other settings
 
     - name: 'Show output'

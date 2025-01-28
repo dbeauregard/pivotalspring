@@ -37,10 +37,13 @@ jobs:
     - name: Set variables
       run: |
         ver=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
-        echo "VERSION=$ver" >> $GITHUB_ENV
+        name=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep name: | cut -d " " -f 2-)
+        echo $ver
+        echo $name
+        echo "DOCKER-VERSION=$ver:$name" >> $GITHUB_ENV
 
     - name: Confirm git commit SHA output
-      run: echo ${{ env.VERSION }}
+      run: echo ${{ env.DOCKER-VERSION }}
 
     - name: Build (Assemble, Check, Test)
       run: ./gradlew build --scan -Pversion-build=${{ github.run_number }}
@@ -94,8 +97,8 @@ jobs:
 
     - name: Build and push
       run: |
-        docker tag pivotalspring-server:0.0.1-${{ github.run_number }}-SNAPSHOT dbeauregard/pivotalspring-server:0.0.1-${{ github.run_number }}-SNAPSHOT
-        docker push dbeauregard/pivotalspring-server:0.0.1-${{ github.run_number }}-SNAPSHOT
+        docker tag ${{ env.DOCKER-VERSION }} dbeauregard/${{ env.DOCKER-VERSION }}
+        docker push dbeauregard/${{ env.DOCKER-VERSION }}
 
   dependency-submission:
 

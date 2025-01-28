@@ -4,7 +4,7 @@ metadata:
   name: pivotalspring-server-prod
   annotations:
     run.googleapis.com/ingress: all
-    run.googleapis.com/invoker-iam-disabled: true
+    # run.googleapis.com/invoker-iam-disabled: 'true' #by invite only, not available
   labels:
     cloud.googleapis.com/location: us-west1
 spec:

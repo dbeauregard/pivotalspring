@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: 'actions/checkout@v4' #GCP required
 
-    - name: print-env
+    - name: 'set version from tag'
       run: |
         echo ${{ github.ref_name }}
         sed -i 's/{VERSION}/${{ github.ref_name }}/g' server/cloudrun.yaml

@@ -10,8 +10,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: pivotalspring-server-prod-rev-{VERSION} #BUMP
-      #name: pivotalspring-server-prod-rev-{VERSION} #BUMP
+      name: pivotalspring-server-prod-rev-{VERSION}
       annotations:
         autoscaling.knative.dev/minScale: '0'
         autoscaling.knative.dev/maxScale: '10'

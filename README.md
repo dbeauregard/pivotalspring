@@ -9,11 +9,11 @@ This includes two subprojects, one for the server side and one for the client.
 - [Client](client)
 
 ## Todo:
+- Versioning consolidation and cleanup
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
-- CD
-    - Update latest OCI to CloudRun
+    - Online SaaS Model?
 - Future epics to explore: 
     - Thymeleaf and HTMX
     - AOT, CDS, Native Images

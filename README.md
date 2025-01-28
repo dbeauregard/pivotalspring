@@ -13,8 +13,7 @@ This includes two subprojects, one for the server side and one for the client.
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
 - CD
-    - GitHub Tagging (match version, kickoff CD)
-    - Deploy OCI container from dockerhub to production (CodeRun)
+    - Update latest OCI to CloudRun
 - Future epics to explore: 
     - Thymeleaf and HTMX
     - AOT, CDS, Native Images

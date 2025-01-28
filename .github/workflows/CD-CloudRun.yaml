@@ -3,7 +3,7 @@ name: CD to CloudRun
 on:
   push: 
     tags: 
-      -"**"
+      - "**"
 
 jobs:
   cd-cloudrun:

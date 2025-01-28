@@ -34,6 +34,14 @@ jobs:
         build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
         build-scan-terms-of-use-agree: "yes"
 
+    - name: Set variables
+      run: |
+        ver=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
+        echo "VERSION=$ver" >> $GITHUB_ENV
+
+    - name: Confirm git commit SHA output
+      run: echo ${{ env.VERSION }}
+
     - name: Build (Assemble, Check, Test)
       run: ./gradlew build --scan -Pversion-build=${{ github.run_number }}
 

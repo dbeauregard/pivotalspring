@@ -39,8 +39,9 @@ This includes two subprojects, one for the server side and one for the client.
 ## Running in Docker (Server)
 - ./gradlew clean build
 - cd server
-- docker build --build-arg JAR_FILE=build/libs/\*SNAPSHOT.jar -t dbeauregard/pivotalspring-server-dockerfile .
-    - update 'SNAPSHOT' to correct version if needed
+- docker build --build-arg JAR_FILE=build/libs/\pivotalspring-server*.jar -t dbeauregard/pivotalspring-server-dockerfile .
+    - update pivotalspring-server*.jar name if needed
+    - or ./gradlew ./gradlew :pivotalspring-server:bootBuildImag
 - docker run -p 8080:8080 dbeauregard/pivotalspring-server-dockerfile:latest
 
 ## Running in Kubernetes (Server)

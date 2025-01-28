@@ -34,6 +34,15 @@ jobs:
         build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
         build-scan-terms-of-use-agree: "yes"
 
+    - name: Set short git commit SHA
+      id: vars
+      run: |
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
+      
+    - name: Confirm git commit SHA output
+      run: echo ${{ env.SHORT_SHA }}
+
     - name: Build (Assemble, Check, Test)
       run: ./gradlew build --scan
 

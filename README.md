@@ -1,4 +1,4 @@
-# Pivotal Spring Demo Applicaiton [![CI with Gradle](https://github.com/dbeauregard/pivotalspring/actions/workflows/CI-gradle.yml/badge.svg?branch=main)](https://github.com/dbeauregard/pivotalspring/actions/workflows/CI-gradle.yml) [![CD to CloudRun](https://github.com/dbeauregard/pivotalspring/actions/workflows/CD-CloudRun.yaml/badge.svg?branch=main)](https://github.com/dbeauregard/pivotalspring/actions/workflows/CD-CloudRun.yaml)
+# Pivotal Spring Demo Applicaiton [![CI with Gradle](https://github.com/dbeauregard/pivotalspring/actions/workflows/CI-gradle.yml/badge.svg?branch=main)](https://github.com/dbeauregard/pivotalspring/actions/workflows/CI-gradle.yml) [![CD to CloudRun](https://github.com/dbeauregard/pivotalspring/actions/workflows/CD-CloudRun.yaml/badge.svg)](https://github.com/dbeauregard/pivotalspring/actions/workflows/CD-CloudRun.yaml)
 This is a 'pivotal' (a.k.a., key) demo application for Spring.
 The intent of this is a reasonably best practice/architecture proof of concept that 
 scafolds a Spring Application including REST, WEB, Data (JDBC), AI, and a CI process.
@@ -13,8 +13,8 @@ This includes two subprojects, one for the server side and one for the client.
     - Cleanup and Prompt Tuning
     - Streaming Response to UI
 - CD
-    - GitHub Tagging
-    - Deploy OCU container from dockerhub to production (CodeRun)
+    - GitHub Tagging (match version, kickoff CD)
+    - Deploy OCI container from dockerhub to production (CodeRun)
 - Future epics to explore: 
     - Thymeleaf and HTMX
     - AOT, CDS, Native Images
@@ -39,9 +39,8 @@ This includes two subprojects, one for the server side and one for the client.
 ## Running in Docker (Server)
 - ./gradlew clean build
 - cd server
-- docker build --build-arg JAR_FILE=build/libs/\pivotalspring-server*.jar -t dbeauregard/pivotalspring-server-dockerfile .
-    - update pivotalspring-server*.jar name if needed
-    - or ./gradlew ./gradlew :pivotalspring-server:bootBuildImag
+- docker build --build-arg JAR_FILE=build/libs/pivotalspring-server*.jar -t dbeauregard/pivotalspring-server-dockerfile .
+    - or ./gradlew :pivotalspring-server:bootBuildImag (will have different image name)
 - docker run -p 8080:8080 dbeauregard/pivotalspring-server-dockerfile:latest
 
 ## Running in Kubernetes (Server)
@@ -61,9 +60,9 @@ This includes two subprojects, one for the server side and one for the client.
 - [local postgres/pgvector] ./gradlew bootRun --args='--spring.profiles.active=psql,ai'
 
 ## Reference CI/CD Process
-- CI/CD Process
-    - Clean
-    - Any code generation for REST (stubs/skeletons)? - N/A for now
+- CI Process
+    - Clean (not needed in ephemeral environment)
+    - Code Generation (for REST? stubs/skeletons?) - N/A for now
     - Compile (javac)
     - Jar (aka Package, `jar`, fat-jar)
     - Run Unit and Component Tests (Junit); post results - BuildScan for now
@@ -74,7 +73,7 @@ This includes two subprojects, one for the server side and one for the client.
     - Build OCI Container Image (CI or CD?)
     - Post OCI container image to Repo - Dockerhub
     - Security Scanning of container image - Snyk
-    - CD...
-        - Set Versions
-        - Deploy to production! - GCP CloudRun
-        - SmokeTest (Future)
+- CD
+    - Set Versions/Tags
+    - Deploy to production! - GCP CloudRun
+    - SmokeTest (Future)

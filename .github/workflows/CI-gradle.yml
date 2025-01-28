@@ -86,8 +86,8 @@ jobs:
 
     - name: Build and push
       run: |
-        docker tag pivotalspring-server:0.0.1-SNAPSHOT dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT
-        docker push dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT
+        docker tag pivotalspring-server:0.0.1-${{ github.run_number }}-SNAPSHOT dbeauregard/pivotalspring-server:0.0.1-${{ github.run_number }}-SNAPSHOT
+        docker push dbeauregard/pivotalspring-server:0.0.1-${{ github.run_number }}-SNAPSHOT
 
   dependency-submission:
 

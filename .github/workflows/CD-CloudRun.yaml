@@ -27,11 +27,8 @@ jobs:
       with:
         service: 'pivotalspring-server-prod'
         metadata: server/cloudrun.yaml
-        suffix: v2
-        tag: v2
-        # region: us-west1
+        region: us-west1
         # image: 'docker.io/dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT'
-        # increase memory and other settings
 
     - name: 'Show output'
       run: 'curl "${{ steps.deploy.outputs.url }}"'

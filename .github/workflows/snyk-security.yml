@@ -44,6 +44,12 @@ jobs:
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"    
 
+      - name: Set variables
+        run: |
+          version=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
+          name=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep name: | cut -d " " -f 2-)
+          echo "DOCKER-TAG=$name:$version" >> $GITHUB_ENV
+          
       # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
       # Use || true to not fail the pipeline, or continue-on-error
       - name: Snyk Code (SAST) test
@@ -71,7 +77,7 @@ jobs:
       
       # Runs Snyk Container (Container and SCA) analysis and uploads result to Snyk.
       - name: Snyk Container test
-        run: snyk container test dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT --sarif | tee snyk-oci.sarif # --file=Dockerfile
+        run: snyk container test dbeauregard/${{ env.DOCKER-TAG }} --sarif | tee snyk-oci.sarif # --file=Dockerfile
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

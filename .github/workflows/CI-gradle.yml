@@ -36,14 +36,12 @@ jobs:
 
     - name: Set variables
       run: |
-        ver=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
+        version=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
         name=$(./gradlew :pivotalspring-server:properties -Pversion-build=${{ github.run_number }} | grep name: | cut -d " " -f 2-)
-        echo $ver
-        echo $name
-        echo "DOCKER-VERSION=$ver:$name" >> $GITHUB_ENV
+        echo "DOCKER-TAG=$name:$version" >> $GITHUB_ENV
 
     - name: Confirm git commit SHA output
-      run: echo ${{ env.DOCKER-VERSION }}
+      run: echo ${{ env.DOCKER-TAG }}
 
     - name: Build (Assemble, Check, Test)
       run: ./gradlew build --scan -Pversion-build=${{ github.run_number }}
@@ -95,10 +93,10 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build and push
+    - name: Tag and Push OCI Image
       run: |
-        docker tag ${{ env.DOCKER-VERSION }} dbeauregard/${{ env.DOCKER-VERSION }}
-        docker push dbeauregard/${{ env.DOCKER-VERSION }}
+        docker tag ${{ env.DOCKER-TAG }} dbeauregard/${{ env.DOCKER-TAG }}
+        docker push dbeauregard/${{ env.DOCKER-TAG }}
 
   dependency-submission:
 

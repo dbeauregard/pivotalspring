@@ -27,7 +27,7 @@ jobs:
       with:
         service: 'pivotalspring-server-prod'
         metadata: server/cloudrun.yaml
-        region: us-west1
+        region: us-west1 # Still needed with yaml
         # image: 'docker.io/dbeauregard/pivotalspring-server:0.0.1-SNAPSHOT'
 
     - name: 'Show output'

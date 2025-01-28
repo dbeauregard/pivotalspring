@@ -1,3 +1,5 @@
 rootProject.name = 'pivotalspring'
-include 'server'
-include 'client'
+include 'pivotalspring-server'
+project(':pivotalspring-server').projectDir = file('server')
+include 'pivotalspring-client'
+project(':pivotalspring-client').projectDir = file('client')

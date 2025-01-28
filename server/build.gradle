@@ -11,6 +11,7 @@ plugins {
 }
 
 group = 'io.dbeauregard'
+version = project.properties['version-base'] + "-" + project.properties['version-build'] + project.properties['version-archiveClassifier']
 
 java {
 	toolchain {
@@ -19,13 +20,7 @@ java {
 }
 
 jar {
-    enabled = false
-}
-
-bootJar {
-    archiveBaseName = rootProject.name + "-" + project.name
-    archiveVersion = project.properties['version-base'] + "-" + project.properties['version-build']
-    archiveClassifier = project.properties['version-archiveClassifier'] //optional
+    enabled = false //disable plain jar
 }
 
 repositories {

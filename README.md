@@ -10,6 +10,10 @@ This includes two subprojects, one for the server side and one for the client.
 
 ## Todo:
 - Versioning consolidation and cleanup
+    - Current version is in gradle.properties appended with github action build number.
+    - Should this be a github env var?
+    - Tagging with the same version (triggering CD) 
+    - But CD is disjointed, no tie to version.  Perhaps a tag in CloudRun?
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI

@@ -18,8 +18,13 @@ jobs:
     - name: 'set version from tag'
       run: |
         echo ${{ github.ref_name }}
+        tag=`echo ${{ github.ref_name }} | sed 's/\./-/g' | awk '{print tolower($0)}'`
+        echo $tag
+        sed -i "s/{TAG}/$tag/g" server/cloudrun.yaml
+
         echo ${{ github.run_number }}
         sed -i 's/{VERSION}/${{ github.run_number }}/g' server/cloudrun.yaml
+        cat server/cloudrun.yaml
 
     - uses: 'google-github-actions/auth@v2'
       with:

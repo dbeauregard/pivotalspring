@@ -48,3 +48,5 @@ spec:
   traffic:
   - latestRevision: true
     percent: 100
+  - revisionName: pivotalspring-server-prod-{VERSION}
+    tag: {TAG}

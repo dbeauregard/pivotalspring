@@ -1,0 +1,52 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: pivotalspring-server-prod
+  annotations:
+    run.googleapis.com/ingress: all
+    # run.googleapis.com/invoker-iam-disabled: 'true' #by invite only, not available
+  labels:
+    cloud.googleapis.com/location: us-west1
+spec:
+  template:
+    metadata:
+      name: pivotalspring-server-prod-1
+      annotations:
+        autoscaling.knative.dev/minScale: '0'
+        autoscaling.knative.dev/maxScale: '10'
+        run.googleapis.com/startup-cpu-boost: 'true'
+      labels:
+        run.googleapis.com/startupProbeType: Custom
+    spec:
+      containerConcurrency: 80
+      containers:
+      - image: dbeauregard/pivotalspring-server:CURRENT #BUMP?
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          periodSeconds: 10
+          timeoutSeconds: 1
+        name: pivotalspring-server-1
+        ports:
+        - containerPort: 8080
+          name: http1
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+        startupProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          periodSeconds: 10
+          timeoutSeconds: 1
+      #serviceAccountName: 747462095514-compute@developer.gserviceaccount.com
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100
+  # - revisionName: pivotalspring-server-prod-{VERSION}
+  #   tag: {TAG}

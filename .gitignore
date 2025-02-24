@@ -34,7 +34,7 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
+# .vscode/
 
 ### GCP ###
 gha-creds-*.json

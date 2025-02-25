@@ -22,7 +22,7 @@ This includes two subprojects, one for the server side and one for the client.
     - AOT, CDS, Native Images
     - Zipkin
 
-## Testing (Postman/http)
+## Testing (HTTPie/Postman)
 - [Get All] http localhost:8080/houses
 - [Get One, valid] http localhost:8080/houses/2
 - [Get One, 404] http localhost:8080/houses/99 [gives 404]

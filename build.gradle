@@ -1,2 +1,100 @@
-// Placeholder file for Gradle Autocomplete and Snyk SCA
-// See the ./client & ./server subproject build.gradle(s)
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.3' apply false
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.gorylenko.gradle-git-properties' version '2.4.2'
+	id 'maven-publish'
+    id 'com.github.spotbugs' version "6.0.25"
+	id 'checkstyle'
+	id 'jacoco'
+	id 'org.cyclonedx.bom' version '1.8.2'
+}
+
+allprojects {
+	group = 'io.dbeauregard'
+    version = project.properties['version-base'] + "-" + project.properties['version-build'] + project.properties['version-archiveClassifier']
+
+	repositories {
+		mavenCentral()
+	}
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'com.gorylenko.gradle-git-properties'
+	apply plugin: 'maven-publish'
+    apply plugin:  'com.github.spotbugs'
+	apply plugin: 'checkstyle'
+	apply plugin: 'jacoco'
+	apply plugin: 'org.cyclonedx.bom'
+
+    java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(21)
+		}
+	}
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    jar {
+        enabled = false
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    test {
+        finalizedBy jacocoTestReport
+    }
+
+    checkstyle {
+    ignoreFailures = true
+    showViolations = false
+    //   maxWarnings = 0
+    }
+
+    spotbugs {
+    //   toolVersion = '4.8.6'
+    ignoreFailures = true
+    }
+
+    tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
+    reports {
+        xml {
+        enabled = false
+        }
+        html {
+        enabled = true
+        }
+    }
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/dbeauregard/pivotalspring")
+                credentials {
+                    username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                    password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+                }
+            }
+        }
+        publications {
+            gpr(MavenPublication) {
+                // from(components.java)
+                artifact bootJar
+            }
+        }
+    }
+}

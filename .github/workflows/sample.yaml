@@ -1,0 +1,136 @@
+name: Sample GitHub Action Workflow
+
+# Concepts
+# Workflow -> Jobs -> Steps
+# Tiggered by 'on's
+# Can have input variables
+# Can read/write GH Secrets and Variables
+# Can have local variables at multiple levels
+# Can pass job outputs to job inputs
+# Can pass artifacts
+# Can output stuff at the end
+# * look at cache (good for .m2 repo)
+# * look at matrix
+# conditionals
+# * look at environments
+
+
+on:
+    workflow_dispatch:
+        inputs:
+            inVersion:
+                description: 'the version'
+                required: true
+                type: string
+                default: ''
+            inName:
+                description: 'your name'
+                required: false
+                type: string
+                default: 'derek'
+
+# ENV Vars can be at top level, job level, or step level
+env: 
+  WF_ENV_VAR: WorkflowEnvVarValue
+  # GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ secrets.GH_PAT }}
+
+jobs:
+    Display-inputs:
+        runs-on: ubuntu-latest
+        permissions:
+            actions: none # none | read | write permission for GITHUB_TOLKEN
+        steps:
+            - name: Display User Inputs
+              id: display-user-inputs
+              run: |
+                echo "User Inputs:"
+                echo "${{ toJSON(github.event.inputs) }}"
+
+    in-and-out:
+        runs-on: ubuntu-latest
+        # environment: 
+        permissions:
+            actions: write # none | read | write permission for GITHUB_TOLKEN
+        needs: Display-inputs
+        outputs:
+            OUTPUT1: ${{ steps.set-outputs.outputs.OUT1 }}
+            OUTPUT2: ${{ steps.set-outputs.outputs.OUT2 }}
+        env:
+          JOB_ENV_VAR: JobEnvVarValue
+        steps:
+          - uses: actions/checkout@v4
+          - name: Display Variables
+            id: display-version-inputs
+            env:
+              STEP_ENV_VAR: StepEnvVarValue
+            run: |
+              echo "### INPUTS ###"
+              echo "Version input: ${{inputs.inVersion}}"
+              echo "Name input: ${{inputs.inName}}"
+              
+              echo "### ENV ###"
+              echo "Workflow ENV: $WF_ENV_VAR"
+              echo "Job ENV: $JOB_ENV_VAR"
+              echo "Step ENV: $STEP_ENV_VAR"
+
+              echo "### SECRETS AND VARS ###"
+              echo "TEST_SECRET: ${{secrets.TEST_SECRET}}"
+              echo "TEST_VAR: ${{vars.TEST_VAR}}"
+              echo "TEST_VAR_UPDATE: ${{vars.TEST_VAR_UPDATE}}"
+
+              echo "### Update Variable ###"
+              gh variable set TEST_VAR_UPDATE --body "${{vars.TEST_VAR_UPDATE}} + ${{inputs.inVersion}}."
+              echo "TEST_VAR_UPDATE: ${{vars.TEST_VAR_UPDATE}}" #Does not refresh till next run
+          - name: Set Outputs
+            id: set-outputs
+            run: |
+                echo "OUT1=JobOutPut1Value" >> $GITHUB_OUTPUT
+                echo "OUT2=JobOutPut2Value" >> $GITHUB_OUTPUT
+          - name: Create an output file artifact
+            run: echo "This is the contents of the output file" > output.txt
+          - name: Upload output file
+            uses: actions/upload-artifact@v4
+            with:
+              name: output-file
+              path: output.txt
+
+    parallel-job:
+      runs-on: ubuntu-latest
+      needs: Display-inputs
+      steps:
+        - name: Set an environment variable
+          run: echo "MY_VARIABLE=Hello from job1" >> $GITHUB_ENV
+        - name: Read the environment variable
+          run: echo "The variable is $MY_VARIABLE"
+        - name: Run only if the previous step fails
+          if: failure()
+          run: echo "Previous step failed!"
+        - name: Run only if the previous step succeeds
+          if: success()
+          run: echo "Previous step succeeded!"
+
+    final-job:
+        runs-on: ubuntu-latest
+        needs: in-and-out
+        if: needs.in-and-out.result == 'success'
+        steps:
+          - name: Display User Inputs
+            id: display-user-inputs
+            run: |
+              echo "Output1: ${{needs.in-and-out.outputs.OUTPUT1}}"
+              echo "Output1: ${{needs.in-and-out.outputs.OUTPUT2}}"
+          - name: Download output file artifact
+            uses: actions/download-artifact@v4
+            with:
+              name: output-file
+              path: output
+          - name: Display the output file
+            run: |
+              echo "Output file: $(cat output/output.txt)"
+          - name: Set the Summary
+            if: always()
+            id: set-step-summary
+            run: |
+              echo "Best regards ${{inputs.inName}}, this is the workflow Summary" >> $GITHUB_STEP_SUMMARY
+                

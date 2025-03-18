@@ -67,15 +67,15 @@ This includes two subprojects, one for the server side and one for the client.
     - Code Generation (for REST? stubs/skeletons?) - N/A for now
     - Compile (javac)
     - Jar (aka Package, `jar`, fat-jar)
-    - Run Unit and Component Tests (Junit); post results - BuildScan for now
+    - Unit and Component Tests (Junit); post results - BuildScan for now
     - Javadoc/other docs (API? Swagger?)
     - Linting (checkstyle, find/spot-bugs, JaCoCo code coverage, etc.)
-    - Security Scanning (Static, dependancy, container) - Snyk
-    - Post Jar(s) to artifact repository - GitHub Packages
-    - Build OCI Container Image (CI or CD?)
+    - Security Scanning (Static, dependancy, container) - e.g., Snyk
+    - Post Jar(s) to artifact repository - e.g., GitHub Packages
+    - Build OCI Container Image (gradle+spring buildBootImage task)
     - Post OCI container image to Repo - Dockerhub
     - Security Scanning of container image - Snyk
 - CD
     - Set Versions/Tags
-    - Deploy to production! - GCP CloudRun
+    - Deploy OCI image (from repo) to production! - GCP CloudRun
     - SmokeTest (Future)

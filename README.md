@@ -15,7 +15,8 @@ This includes two subprojects, one for the server side and one for the client.
 
 ## Future:
 - AI
-    - Cleanup and Prompt Tuning
+    - Updates and Prompt Tuning
+    - MCP
     - Streaming Response to UI
     - Online SaaS Model?
 - Future epics to explore: 

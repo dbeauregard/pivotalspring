@@ -8,11 +8,13 @@ This includes two subprojects, one for the server side and one for the client.
 - [Server](server)
 - [Client](client)
 
+## Semantic Versioning and configuration
+- Uses semantic versioning MAJOR.MINOR.PATCH-BUILD-CLASSIFIER (e.g., 1.0.0-27-SNAPSHOT)
+- The current version is set in gradle.properties and should be updated there
+- It is appended with github action build number (or 'local' if ran locally)
+
 ## Todo:
-- Versioning consolidation and cleanup
-    - Current version is in gradle.properties appended with github action build number.
-    - Should this be a github env var?
-    - Deploy specific version of docker image
+- Deploy specific version of docker image
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI

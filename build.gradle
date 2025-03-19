@@ -11,12 +11,18 @@ plugins {
 }
 
 allprojects {
-	group = 'io.dbeauregard'
-    version = project.properties['version-base'] + "-" + project.properties['version-build'] + project.properties['version-archiveClassifier']
+    // pulled from gradle.properties
+	group = project.properties['group']
+    version = project.properties['version'] + "-" + project.properties['build-number']\
+            + project.properties['archiveClassifier']
 
 	repositories {
 		mavenCentral()
 	}
+
+    jar {
+        enabled = false
+    }
 }
 
 subprojects {
@@ -45,10 +51,6 @@ subprojects {
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 
-    jar {
-        enabled = false
-    }
-
     test {
         useJUnitPlatform()
     }
@@ -69,14 +71,18 @@ subprojects {
     }
 
     tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
-    reports {
-        xml {
-        enabled = false
-        }
-        html {
-        enabled = true
+        reports {
+            xml {
+            enabled = false
+            }
+            html {
+            enabled = true
+            }
         }
     }
+
+    jar {
+        enabled = false
     }
 
     publishing {

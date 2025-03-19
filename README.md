@@ -13,8 +13,7 @@ This includes two subprojects, one for the server side and one for the client.
 - The current version is set in gradle.properties and should be updated there
 - It is appended with github action build/run number (or 'local' if ran locally)
 
-## Todo:
-- Deploy specific version of docker image
+## Future:
 - AI
     - Cleanup and Prompt Tuning
     - Streaming Response to UI

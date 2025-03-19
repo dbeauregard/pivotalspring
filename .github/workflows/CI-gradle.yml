@@ -31,18 +31,20 @@ jobs:
 
     - name: Set variables
       run: |
+        echo "Build Number: ${{ github.run_number }}"
+      
         # Extract the Gradle Version appended with this build/run number
         VERSION=$(./gradlew :pivotalspring-server:properties -Pbuild-number=${{ github.run_number }} | grep version: | cut -d " " -f 2-)
         echo "VERSION: $VERSION"
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
         # Extract the Gradle Project Name
         NAME=$(./gradlew :pivotalspring-server:properties -Pbuild-number=${{ github.run_number }} | grep name: | cut -d " " -f 2-)
         echo "NAME: $NAME"
         echo "NAME=$NAME" >> $GITHUB_ENV
 
-        echo "DOCKER-NAME=$NAME" >> $GITHUB_ENV
-        echo "DOCKER-TAG=$NAME:$VERSION" >> $GITHUB_ENV
+        echo "DOCKER_NAME=$NAME" >> $GITHUB_ENV
+        echo "DOCKER_TAG=$NAME:$VERSION" >> $GITHUB_ENV
 
     # The heavy lifting of the Build 
     - name: Build (Compile, Assemble, Check, Test)
@@ -97,10 +99,10 @@ jobs:
 
     - name: Tag and Push OCI Image
       run: |
-        docker tag ${{ env.DOCKER-TAG }} dbeauregard/${{ env.DOCKER-TAG }}
-        docker tag ${{ env.DOCKER-TAG }} dbeauregard/${{ env.DOCKER-NAME }}:CURRENT
-        docker push dbeauregard/${{ env.DOCKER-TAG }}
-        docker push dbeauregard/${{ env.DOCKER-NAME }}:CURRENT
+        docker tag ${{ env.DOCKER_TAG }} dbeauregard/${{ env.DOCKER_TAG }}
+        docker tag ${{ env.DOCKER_TAG }} dbeauregard/${{ env.DOCKER_NAME }}:CURRENT
+        docker push dbeauregard/${{ env.DOCKER_TAG }}
+        docker push dbeauregard/${{ env.DOCKER_NAME }}:CURRENT
 
     - name: Set the Summary
       if: always()
@@ -108,8 +110,8 @@ jobs:
       run: |
         echo "NAME: $NAME" >> $GITHUB_STEP_SUMMARY
         echo "VERSION: $VERSION" >> $GITHUB_STEP_SUMMARY
-        echo "DOCKER-NAME: $DOCKER-NAME" >> $GITHUB_STEP_SUMMARY
-        echo "DOCKER-TAG: $DOCKER-TAG" >> $GITHUB_STEP_SUMMARY
+        echo "DOCKER-NAME: $DOCKER_NAME" >> $GITHUB_STEP_SUMMARY
+        echo "DOCKER-TAG: $DOCKER_TAG" >> $GITHUB_STEP_SUMMARY
 
   dependency-submission:
     runs-on: ubuntu-latest

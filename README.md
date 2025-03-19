@@ -11,7 +11,7 @@ This includes two subprojects, one for the server side and one for the client.
 ## Semantic Versioning and configuration
 - Uses semantic versioning MAJOR.MINOR.PATCH-BUILD-CLASSIFIER (e.g., 1.0.0-27-SNAPSHOT)
 - The current version is set in gradle.properties and should be updated there
-- It is appended with github action build number (or 'local' if ran locally)
+- It is appended with github action build/run number (or 'local' if ran locally)
 
 ## Todo:
 - Deploy specific version of docker image

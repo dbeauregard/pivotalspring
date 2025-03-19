@@ -108,6 +108,7 @@ jobs:
       if: always()
       id: set-step-summary
       run: |
+        echo "Build Number: ${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
         echo "NAME: $NAME" >> $GITHUB_STEP_SUMMARY
         echo "VERSION: $VERSION" >> $GITHUB_STEP_SUMMARY
         echo "DOCKER-NAME: $DOCKER_NAME" >> $GITHUB_STEP_SUMMARY

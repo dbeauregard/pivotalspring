@@ -10,7 +10,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: pivotalspring-server-prod-{VERSION}
+      name: pivotalspring-server-prod-{VERSION_GCP}
       annotations:
         autoscaling.knative.dev/minScale: '0'
         autoscaling.knative.dev/maxScale: '10'
@@ -20,14 +20,14 @@ spec:
     spec:
       containerConcurrency: 80
       containers:
-      - image: dbeauregard/pivotalspring-server:CURRENT #BUMP?
+      - image: dbeauregard/pivotalspring-server:{VERSION}
         livenessProbe:
-          failureThreshold: 3
+          failureThreshold: 5
           httpGet:
             path: /actuator/health
             port: 8080
           periodSeconds: 10
-          timeoutSeconds: 1
+          timeoutSeconds: 5
         name: pivotalspring-server-1
         ports:
         - containerPort: 8080

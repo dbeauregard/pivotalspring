@@ -99,10 +99,10 @@ jobs:
 
     - name: Tag and Push OCI Image
       run: |
-        docker tag ${{ env.DOCKER_TAG }} dbeauregard/${{ env.DOCKER_TAG }}
-        docker tag ${{ env.DOCKER_TAG }} dbeauregard/${{ env.DOCKER_NAME }}:CURRENT
-        docker push dbeauregard/${{ env.DOCKER_TAG }}
-        docker push dbeauregard/${{ env.DOCKER_NAME }}:CURRENT
+        docker tag $DOCKER_TAG dbeauregard/$DOCKER_TAG
+        docker tag $DOCKER_TAG dbeauregard/$DOCKER_NAME:CURRENT
+        docker push dbeauregard/$DOCKER_TAG
+        docker push dbeauregard/$DOCKER_NAME:CURRENT
 
     - name: Set the Summary
       if: always()

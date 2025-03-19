@@ -22,18 +22,26 @@ jobs:
     steps:
     - uses: 'actions/checkout@v4' #GCP required
 
-    - name: 'set version from tag'
+    - name: 'Get Variables'
       run: |
         echo "ref_name: ${{ github.ref_name }}"
-        TAG=`echo ${{ github.ref_name }} | sed 's/^v//'`
-        TAG_GCP=`echo ${{ github.ref_name }} | sed 's/\./-/g' | awk '{print tolower($0)}'`
-        echo "TAG: $TAG"
-        echo "TAG_GCP: $TAG_GCP"
-        echo "TAG=$TAG" >> $GITHUB_ENV
-        echo "TAG_GCP=$TAG_GCP" >> $GITHUB_ENV
+        echo "input tag: ${{inputs.tag}}"
 
-        sed -i "s/{VERSION}/$TAG/g" server/cloudrun.yaml
-        sed -i "s/{VERSION_GCP}/$TAG_GCP/g" server/cloudrun.yaml
+        # Prefer the input tag, fallback to github.ref_name if empty
+        START_TAG="${{ inputs.tag != '' && inputs.tag || github.ref_name }}"
+
+        DOCKER_TAG=`echo $START_TAG | sed 's/^v//'`
+        GCP_TAG=`echo $START_TAG | sed 's/\./-/g' | awk '{print tolower($0)}'`
+        echo "Docker TAG: $DOCKER_TAG"
+        echo "GCP TAG: $GCP_TAG"
+        echo "START_TAG=$START_TAG" >> $GITHUB_ENV
+        echo "GCP_TAG=$GCP_TAG" >> $GITHUB_ENV
+        echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
+
+    - name: 'Set Variables in cloud run config'
+      run: |
+        sed -i "s/{VERSION}/$DOCKER_TAG/g" server/cloudrun.yaml
+        sed -i "s/{VERSION_GCP}/$GCP_TAG/g" server/cloudrun.yaml
         cat server/cloudrun.yaml
 
     - uses: 'google-github-actions/auth@v2'
@@ -58,5 +66,5 @@ jobs:
       if: always()
       id: set-step-summary
       run: |
-        echo "TAG: $TAG"  >> $GITHUB_STEP_SUMMARY
+        echo "TAG: $START_TAG"  >> $GITHUB_STEP_SUMMARY
         echo "URL: ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY

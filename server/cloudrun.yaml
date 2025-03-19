@@ -37,12 +37,12 @@ spec:
             cpu: 1000m
             memory: 1Gi
         startupProbe:
-          failureThreshold: 3
+          failureThreshold: 5
           httpGet:
             path: /actuator/health
             port: 8080
           periodSeconds: 10
-          timeoutSeconds: 1
+          timeoutSeconds: 5
       serviceAccountName: 747462095514-compute@developer.gserviceaccount.com
       timeoutSeconds: 300
   traffic:

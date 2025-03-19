@@ -18,13 +18,11 @@ jobs:
     - name: 'set version from tag'
       run: |
         echo ${{ github.ref_name }}
-        tag=`echo ${{ github.ref_name }} | sed 's/\./-/g' | awk '{print tolower($0)}'`
-        echo $tag
-        # sed -i "s/{TAG}/$tag/g" server/cloudrun.yaml
+        TAG=`echo ${{ github.ref_name }} | sed 's/\./-/g' | awk '{print tolower($0)}'`
+        echo $TAG
+        echo "TAG=$TAG" >> $GITHUB_ENV
 
-        echo ${{ github.run_number }}
-        # sed -i 's/{VERSION}/${{ github.run_number }}/g' server/cloudrun.yaml
-        sed -i "s/{VERSION}/$tag/g" server/cloudrun.yaml
+        sed -i "s/{VERSION}/$TAG/g" server/cloudrun.yaml
         cat server/cloudrun.yaml
 
     - uses: 'google-github-actions/auth@v2'
@@ -44,3 +42,10 @@ jobs:
 
     - name: 'Show output'
       run: 'curl "${{ steps.deploy.outputs.url }}"'
+
+    - name: Set the Summary
+      if: always()
+      id: set-step-summary
+      run: |
+        echo "TAG: $TAG"  >> $GITHUB_STEP_SUMMARY
+        echo "URL: ${{ steps.deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY

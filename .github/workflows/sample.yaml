@@ -2,17 +2,20 @@ name: Sample GitHub Action Workflow
 
 # Concepts
 # Workflow -> Jobs -> Steps
-# Tiggered by 'on's
+# Tiggered by "on"s
 # Can have input variables
-# Can read/write GH Secrets and Variables
+# Can read/write GH Secrets (secrets.xyz) and Variables (vars.xyz)
+      # requires PAT for writes
 # Can have local variables at multiple levels
+# Can pass env vars between steps (>> $GITHUB_ENV)
 # Can pass job outputs to job inputs
-# Can pass artifacts
-# Can output stuff at the end
-# * look at cache (good for .m2 repo)
+# Can save/pass artifacts
+# Can output text at the end (>> $GITHUB_STEP_SUMMARY)
+# cache (good for .m2 repo)
 # * look at matrix
 # conditionals
 # * look at environments
+# can call scripts: run: ./scripts/myscript.sh
 
 
 on:

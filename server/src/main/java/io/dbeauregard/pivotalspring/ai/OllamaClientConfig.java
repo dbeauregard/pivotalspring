@@ -71,7 +71,7 @@ public class OllamaClientConfig {
 
         // Functions
         if (enableFunctions)
-            builder = builder.defaultFunctions("getHouses"); // Function
+            builder = builder.defaultTools("getHouses"); // Function
 
         builder = builder.defaultAdvisors(new SimpleLoggerAdvisor()); // Logging, "add toward end"
         this.chatClient = builder.build();

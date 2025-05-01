@@ -5,7 +5,7 @@ repositories {
 }
 
 ext {
-  set('springAiVersion', "1.0.0-M6")
+  set('springAiVersion', "1.0.0-M8")
   set('openapiVersion', '2.8.6')
   set('swaggerVersion', '2.2.29')
 }
@@ -18,9 +18,9 @@ dependencies {
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiVersion}"
 	implementation "io.swagger.core.v3:swagger-annotations:${swaggerVersion}"  //TODO: Temporary fix for Swagger
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
-	implementation 'org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter'
-	// implementation 'org.springframework.ai:spring-ai-neo4j-store-spring-boot-starter'
+	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+	implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
+  	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'

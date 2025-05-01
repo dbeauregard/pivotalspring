@@ -2,7 +2,6 @@ package io.dbeauregard.pivotalspring.ai;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
-
-import io.dbeauregard.pivotalspring.HouseEntity;
-import io.dbeauregard.pivotalspring.HouseRepository;
 
 @Configuration
 @Profile("ai")
@@ -33,7 +28,7 @@ public class OllamaClientConfig {
     private ChatClient chatClient;
     private static final Logger log = LoggerFactory.getLogger(OllamaClientConfig.class);
     private final VectorStore vectorStore;
-    private final HouseRepository repo;
+    
 
     @Value("${io.dbeauregard.pivotalspring.baseprompt}")
     private String basePrompt;
@@ -53,10 +48,9 @@ public class OllamaClientConfig {
     @Autowired
     ChatMemory chatMemory;
 
-    public OllamaClientConfig(ChatClient.Builder builder, VectorStore vectorStore, HouseRepository repo) {
+    public OllamaClientConfig(ChatClient.Builder builder, VectorStore vectorStore) {
         this.vectorStore = vectorStore;
         this.builder = builder;
-        this.repo = repo;
     }
 
     private void buildChatClient() {
@@ -78,7 +72,7 @@ public class OllamaClientConfig {
 
         // Functions
         if (enableFunctions)
-            builder = builder.defaultTools("getHouses"); // Function
+            builder = builder.defaultTools(new ToolFunction()); // Function
 
         builder = builder.defaultAdvisors(new SimpleLoggerAdvisor()); // Logging, "add toward end"
         this.chatClient = builder.build();
@@ -154,17 +148,4 @@ public class OllamaClientConfig {
         buildChatClient();
         return this.chatClient;
     }
-
-    @Bean
-    @Description("Get a list of houses for sale")
-    Function<Reqeust, Iterable<HouseEntity>> getHouses() {
-        return Reqeust -> {
-            log.info("My AI Function Called with. {}", Reqeust);
-            return repo.findAll();
-        };
-    }
-
-    record Reqeust(String input) {
-    }
-
 }

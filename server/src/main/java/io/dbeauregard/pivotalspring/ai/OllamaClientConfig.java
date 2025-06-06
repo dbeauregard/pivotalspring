@@ -57,7 +57,7 @@ public class OllamaClientConfig {
         if (chatClient != null)
             return; // already exists
 
-        MessageChatMemoryAdvisor memory = new MessageChatMemoryAdvisor(chatMemory);
+        MessageChatMemoryAdvisor memory = MessageChatMemoryAdvisor.builder(chatMemory).build();
         builder = builder.defaultSystem(basePrompt) // Prompt
                 .defaultAdvisors(memory); // Chat Memory
 
@@ -75,7 +75,7 @@ public class OllamaClientConfig {
             builder = builder.defaultTools(new ToolFunction()); // Function
 
         builder = builder.defaultAdvisors(new SimpleLoggerAdvisor()); // Logging, "add toward end"
-        this.chatClient = builder.build();
+        this.chatClient = builder.build();  //Build the Chat Client
 
     }
 

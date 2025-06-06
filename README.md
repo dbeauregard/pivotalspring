@@ -15,6 +15,10 @@ This includes two subprojects, one for the server side and one for the client.
 
 ## Future:
 - AI
+    - Refresh
+      - Chat [partial]
+      - Rag [future]
+      - Tool calling [future]
     - Updates and Prompt Tuning
     - MCP
     - Streaming Response to UI

@@ -25,7 +25,6 @@ import org.springframework.core.io.Resource;
 public class OllamaClientConfig {
 
     private ChatClient.Builder builder;
-    private ChatClient chatClient;
     private static final Logger log = LoggerFactory.getLogger(OllamaClientConfig.class);
     private final VectorStore vectorStore;
     
@@ -53,10 +52,10 @@ public class OllamaClientConfig {
         this.builder = builder;
     }
 
-    private void buildChatClient() {
-        if (chatClient != null)
-            return; // already exists
+    @Bean
+    ChatClient getChatClient() {
 
+        //Base Prompt and Chat Memory
         MessageChatMemoryAdvisor memory = MessageChatMemoryAdvisor.builder(chatMemory).build();
         builder = builder.defaultSystem(basePrompt) // Prompt
                 .defaultAdvisors(memory); // Chat Memory
@@ -70,13 +69,15 @@ public class OllamaClientConfig {
                 .build());
         }
 
-        // Functions
+        // Tools/Functions
         if (enableFunctions)
             builder = builder.defaultTools(new ToolFunction()); // Function
 
+        //Logging
         builder = builder.defaultAdvisors(new SimpleLoggerAdvisor()); // Logging, "add toward end"
-        this.chatClient = builder.build();  //Build the Chat Client
-
+        
+        //Build the Chat Client
+        return builder.build();
     }
 
     private void loadEmbeddings() {
@@ -143,9 +144,4 @@ public class OllamaClientConfig {
         }
     }
 
-    @Bean
-    ChatClient getChatClient() {
-        buildChatClient();
-        return this.chatClient;
-    }
 }

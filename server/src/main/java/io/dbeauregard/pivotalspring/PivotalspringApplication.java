@@ -21,8 +21,9 @@ public class PivotalspringApplication {
 	public CommandLineRunner test (HouseRepository repo) {
 		return (args) -> {
 			log.info("Hello World from the Command Line Runner!");
-			log.info("testing repo with 1 add");
+			log.info("Testing Database Repository with 1 add");
 			repo.save(new HouseEntity("1234 Seasame Street", 987000, 3, 2, 1500));
+			log.info("Reading Database Repository:");
 			repo.findAll().forEach(house -> {
 				log.info("Found House: {}", house);
 			});

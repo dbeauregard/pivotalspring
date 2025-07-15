@@ -27,6 +27,7 @@ public class OllamaClientConfig {
     private ChatClient.Builder builder;
     private static final Logger log = LoggerFactory.getLogger(OllamaClientConfig.class);
     private final VectorStore vectorStore;
+    private final ToolFunction toolFunction;
     
 
     @Value("${io.dbeauregard.pivotalspring.baseprompt}")
@@ -38,8 +39,8 @@ public class OllamaClientConfig {
     @Value("${io.dbeauregard.pivotalspring.enablerag}")
     private Boolean enablerag;
 
-    @Value("${io.dbeauregard.pivotalspring.enablefunctions}")
-    private Boolean enableFunctions;
+    @Value("${io.dbeauregard.pivotalspring.enabletools}")
+    private Boolean enableTools;
 
     @Value("classpath:spring-rag.txt")
     private Resource springRagDoc;
@@ -47,9 +48,10 @@ public class OllamaClientConfig {
     @Autowired
     ChatMemory chatMemory;
 
-    public OllamaClientConfig(ChatClient.Builder builder, VectorStore vectorStore) {
+    public OllamaClientConfig(ChatClient.Builder builder, VectorStore vectorStore, ToolFunction toolFunction) {
         this.vectorStore = vectorStore;
         this.builder = builder;
+        this.toolFunction = toolFunction;
     }
 
     @Bean
@@ -70,8 +72,8 @@ public class OllamaClientConfig {
         }
 
         // Tools/Functions
-        if (enableFunctions)
-            builder = builder.defaultTools(new ToolFunction()); // Function
+        if (enableTools)
+            builder = builder.defaultTools(toolFunction); // Function
 
         //Logging
         builder = builder.defaultAdvisors(new SimpleLoggerAdvisor()); // Logging, "add toward end"

@@ -10,7 +10,9 @@ import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.document.Document;
+import org.springframework.ai.template.st.StTemplateRenderer;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +68,9 @@ public class OllamaClientConfig {
         if (enablerag) {
             loadEmbeddings();
             builder = builder.defaultAdvisors(
-                QuestionAnswerAdvisor.builder(vectorStore).
-                searchRequest(SearchRequest.builder().build())
+                QuestionAnswerAdvisor.builder(vectorStore)
+                .promptTemplate(generateRAGPrompt())
+                .searchRequest(SearchRequest.builder().build())
                 .build());
         }
 
@@ -80,6 +83,14 @@ public class OllamaClientConfig {
         
         //Build the Chat Client
         return builder.build();
+    }
+
+    private PromptTemplate generateRAGPrompt() {
+        PromptTemplate customPromptTemplate = PromptTemplate.builder()
+        .renderer(StTemplateRenderer.builder().startDelimiterToken('<').endDelimiterToken('>').build())
+        .template(ragPrompt)
+        .build();
+        return customPromptTemplate;
     }
 
     private void loadEmbeddings() {

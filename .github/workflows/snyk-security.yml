@@ -66,7 +66,7 @@ jobs:
       # Server
       - name: Snyk Open Source (SCA) test
         # run: snyk test --report --sarif | tee snyk-sca.sarif
-        run: snyk test --gradle-sub-project='pivotalspring:pivotalspring-server' --sarif | tee snyk-sca-server.sarif
+        run: snyk test --gradle-sub-project=pivotalspring-server --sarif | tee snyk-sca-server.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -75,7 +75,7 @@ jobs:
       # Client
       - name: Snyk Open Source (SCA) test
         # run: snyk test --report --sarif | tee snyk-sca.sarif
-        run: snyk test --gradle-sub-project='pivotalspring:pivotalspring-client' --sarif | tee snyk-sca-client.sarif
+        run: snyk test --gradle-sub-project=pivotalspring-client --sarif | tee snyk-sca-client.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

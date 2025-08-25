@@ -91,16 +91,19 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk-code.sarif
+          category: "SAST"
 
       - name: Upload SCA results to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk-sca.sarif
+          category: "SCA"
       
       - name: Upload IaaS results to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk-iaas.sarif
+          category: "IAAS"
 
       #Snyk Cleanup sarif report
       - name: Replace security-severity undefined for license-related findings 

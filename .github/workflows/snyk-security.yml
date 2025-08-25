@@ -127,7 +127,7 @@ jobs:
           sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk-oci.sarif
           sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk-oci.sarif
 
-     # Split OCI SARIF into single-run files (only if needed)
+     # Split OCI SARIF into single-run file
       - name: Split OCI SARIF if multi-run
         run: |
           count=$(jq '.runs | length' snyk-oci.sarif)
@@ -135,9 +135,8 @@ jobs:
             # Keep original file; produce a JSON array with one element for the matrix
             jq -n --arg f "snyk-oci.sarif" '[ $f ]' > oci_files.json
           else
-            i = 0
-            jq -c --argjson i "$i" \
-              '{ "$schema": ."$schema", "version": .version, "runs": [ .runs[$i] ] }' \
+            jq -c --argjson i "0" \
+              '{ "$schema": ."$schema", "version": .version, "runs": [ .runs[0] ] }' \
               snyk-oci.sarif > "snyk-oci-new.sarif"
           fi
 

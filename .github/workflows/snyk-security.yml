@@ -127,12 +127,6 @@ jobs:
           sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk-oci.sarif
           sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk-oci.sarif
 
-      # - name: Upload OCI results to GitHub Code Scanning
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     sarif_file: snyk-oci.sarif
-      #     category: "OCI"
-
      # Split OCI SARIF into single-run files (only if needed)
       - name: Split OCI SARIF if multi-run
         run: |
@@ -141,17 +135,14 @@ jobs:
             # Keep original file; produce a JSON array with one element for the matrix
             jq -n --arg f "snyk-oci.sarif" '[ $f ]' > oci_files.json
           else
-            for i in $(seq 0 $((count-1))); do
-              jq -c --argjson i "$i" \
-                '{ "$schema": ."$schema", "version": .version, "runs": [ .runs[$i] ] }' \
-                snyk-oci.sarif > "snyk-oci-$i.sarif"
-            done
-            ls -1 snyk-oci-*.sarif | jq -R -s -c 'split("\n")[:-1]' > oci_files.json
+            i = 0
+            jq -c --argjson i "$i" \
+              '{ "$schema": ."$schema", "version": .version, "runs": [ .runs[$i] ] }' \
+              snyk-oci.sarif > "snyk-oci-new.sarif"
           fi
-          echo "files=$(cat oci_files.json)" >> "$GITHUB_OUTPUT"
 
-      - name: Upload OCI
-        uses: actions/upload-artifact@v4
+      - name: Upload OCI results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          name: OCI
-          path: snyk-oci.sarif
+          sarif_file: snyk-oci-new.sarif
+          category: "OCI"

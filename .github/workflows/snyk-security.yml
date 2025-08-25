@@ -64,7 +64,7 @@ jobs:
 
       # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       # Server
-      - name: Snyk Open Source (SCA) test
+      - name: Snyk Open Source (SCA) test - Server
         # run: snyk test --report --sarif | tee snyk-sca.sarif
         run: snyk test --gradle-sub-project=pivotalspring-server --sarif | tee snyk-sca-server.sarif
         continue-on-error: true
@@ -73,7 +73,7 @@ jobs:
 
       # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       # Client
-      - name: Snyk Open Source (SCA) test
+      - name: Snyk Open Source (SCA) test - Client
         # run: snyk test --report --sarif | tee snyk-sca.sarif
         run: snyk test --gradle-sub-project=pivotalspring-client --sarif | tee snyk-sca-client.sarif
         continue-on-error: true
@@ -121,14 +121,17 @@ jobs:
           sarif_file: snyk-iaas.sarif
           category: "IAAS"
 
+      - name: Upload OCI results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        # continue-on-error: true
+        with:
+          sarif_file: snyk-oci.sarif
+          category: "OCI"
+
       #Snyk Cleanup sarif report
       - name: Replace security-severity undefined for license-related findings 
         run: |
           sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk-oci.sarif
           sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk-oci.sarif
 
-      - name: Upload OCI results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        # continue-on-error: true
-        with:
-          sarif_file: snyk-oci.sarif
+     

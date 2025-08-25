@@ -121,17 +121,16 @@ jobs:
           sarif_file: snyk-iaas.sarif
           category: "IAAS"
 
-      - name: Upload OCI results to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        # continue-on-error: true
-        with:
-          sarif_file: snyk-oci.sarif
-          category: "OCI"
-
       #Snyk Cleanup sarif report
       - name: Replace security-severity undefined for license-related findings 
         run: |
           sed -i 's/"security-severity": "undefined"/"security-severity": "0"/g' snyk-oci.sarif
           sed -i 's/"security-severity": "null"/"security-severity": "0"/g' snyk-oci.sarif
+
+      - name: Upload OCI results to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk-oci.sarif
+          category: "OCI"
 
      

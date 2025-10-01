@@ -19,7 +19,7 @@ public class PivotalspringApplication {
 
 	@Bean
 	public CommandLineRunner test (HouseRepository repo) {
-		return _ -> {
+		return args -> {
 			log.info("Hello World from the Command Line Runner!");
 			log.info("Testing Database Repository with 1 add");
 			repo.save(new HouseEntity("1234 Seasame Street", 987000, 3, 2, 1500));

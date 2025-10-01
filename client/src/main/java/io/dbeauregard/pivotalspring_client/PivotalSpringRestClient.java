@@ -39,7 +39,7 @@ class PivotalSpringRestClient {
     @Bean
     @Profile("!test")
     public CommandLineRunner run() throws Exception {
-        return args -> {
+        return _ -> {
             getOne(Long.valueOf(1));
             getAll();
             System.exit(0);

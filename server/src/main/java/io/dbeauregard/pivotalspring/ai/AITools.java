@@ -15,18 +15,25 @@ import io.dbeauregard.pivotalspring.HouseEntity;
 import io.dbeauregard.pivotalspring.HouseRepository;
 
 @Service
-public class ToolFunction {
+public class AITools {
 
     private final HouseRepository repo;
-    private static final Logger log = LoggerFactory.getLogger(ToolFunction.class);
+    private static final Logger log = LoggerFactory.getLogger(AITools.class);
 
-    ToolFunction(HouseRepository repo) {
+    AITools(HouseRepository repo) {
         this.repo = repo;
     }
 
     @Tool(description = "Get the current date and time in the user's timezone")
     String getCurrentDateTime() {
+        log.info("AI Called Get Date Tool.");
         return LocalDateTime.now().atZone(LocaleContextHolder.getTimeZone().toZoneId()).toString();
+    }
+
+     @Tool(description = "get the current geographic location of the user")
+    public String getLocation() {
+        log.info("AI Called Get Location Tool.");
+        return "Austin, TX";
     }
 
     @Tool(description = "Get a list of houses that are for sale")

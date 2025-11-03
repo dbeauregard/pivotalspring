@@ -26,3 +26,11 @@ main {
 body {
     background-color: #f4f4f4;
 }
+
+pre {
+    /* Breaks long words (like a single URL or token) if necessary */
+    word-break: break-all; 
+    
+    /* Ensures lines wrap instead of overflowing the container */
+    white-space: pre-wrap; 
+}

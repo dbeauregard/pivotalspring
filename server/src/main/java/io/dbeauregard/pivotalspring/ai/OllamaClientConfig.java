@@ -29,7 +29,7 @@ public class OllamaClientConfig {
     private ChatClient.Builder builder;
     private static final Logger log = LoggerFactory.getLogger(OllamaClientConfig.class);
     private final VectorStore vectorStore;
-    private final ToolFunction toolFunction;
+    private final AITools aiTools;
     
 
     @Value("${io.dbeauregard.pivotalspring.baseprompt}")
@@ -50,10 +50,10 @@ public class OllamaClientConfig {
     @Autowired
     ChatMemory chatMemory;
 
-    public OllamaClientConfig(ChatClient.Builder builder, VectorStore vectorStore, ToolFunction toolFunction) {
+    public OllamaClientConfig(ChatClient.Builder builder, VectorStore vectorStore, AITools aiTools) {
         this.vectorStore = vectorStore;
         this.builder = builder;
-        this.toolFunction = toolFunction;
+        this.aiTools = aiTools;
     }
 
     @Bean
@@ -76,7 +76,7 @@ public class OllamaClientConfig {
 
         // Tools/Functions
         if (enableTools)
-            builder = builder.defaultTools(toolFunction); // Function
+            builder = builder.defaultTools(aiTools); // AKA, Functions
 
         //Logging
         builder = builder.defaultAdvisors(new SimpleLoggerAdvisor()); // Logging, "add toward end"

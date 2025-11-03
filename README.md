@@ -15,14 +15,11 @@ This includes two subprojects, one for the server side and one for the client.
 
 ## Future:
 - AI
-    - Refresh
-      - Chat [partial]
-      - Rag [future]
-      - Tool calling [future]
-    - Updates and Prompt Tuning
+    - Rag Refresh [future]
+    - Prompt Tuning
+    - Structured Responses
     - MCP
     - Streaming Response to UI
-    - Online SaaS Model?
 - Future epics to explore: 
     - Thymeleaf and HTMX
     - AOT, CDS, Native Images
@@ -63,7 +60,7 @@ This includes two subprojects, one for the server side and one for the client.
 ## Spring AI with Ollama
 - brew install ollama
 - ollama serve [runs ollama 'server']
-- (new terminal, will install model first time) ollama run llama3.1 (or llama3.2) [`ctrl + d` to exit]
+- (new terminal, will install model first time) ollama run llama3.1 [`ctrl + d` to exit]
 - (Open WebUI) docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 - [local postgres/pgvector] ./gradlew bootRun --args='--spring.profiles.active=psql,ai'
 

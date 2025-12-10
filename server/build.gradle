@@ -5,9 +5,9 @@ repositories {
 }
 
 ext {
-  set('springAiVersion', "1.1.0")
-  set('openapiVersion', '2.8.9')
-  set('swaggerVersion', '2.2.29')
+  set('springAiVersion', "1.1.2")
+  set('openapiVersion', '2.8.14')
+  set('swaggerVersion', '2.2.41')
 }
 
 dependencies {

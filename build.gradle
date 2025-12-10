@@ -2,12 +2,12 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.8' apply false
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'com.gorylenko.gradle-git-properties' version '2.4.2' apply false //2.5.0 gives errors
+    id 'com.gorylenko.gradle-git-properties' version '2.5.4' apply false //Will not appear in VSCode Debug/Run
     id 'maven-publish'
-    id 'com.github.spotbugs' version "6.1.7" apply false
+    id 'com.github.spotbugs' version "6.4.7" apply false
     id 'checkstyle'
     id 'jacoco'
-    id 'org.cyclonedx.bom' version '2.2.0' apply false
+    id 'org.cyclonedx.bom' version '2.4.1' apply false  //TODO: Update to 3.x w/ Gradle 9
 }
 
 allprojects {

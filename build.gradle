@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.5.9' apply false
+    id 'org.springframework.boot' version '3.5.10' apply false
     id 'io.spring.dependency-management' version '1.1.7'
     id 'com.gorylenko.gradle-git-properties' version '2.5.4' apply false //Will not appear in VSCode Debug/Run
     id 'maven-publish'

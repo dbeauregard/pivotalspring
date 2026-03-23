@@ -4,13 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.web.servlet.client.RestTestClient;
 
 import io.dbeauregard.pivotalspring.restapi.HouseController;
 
+@AutoConfigureRestTestClient
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class PivotalspringApplicationTests {
 
@@ -24,8 +26,7 @@ class PivotalspringApplicationTests {
 	private int port;
 
 	@Autowired
-	private TestRestTemplate restTemplate;
-
+  	private RestTestClient restClient;
 
 	@Test
 	void contextLoads() {
@@ -35,8 +36,11 @@ class PivotalspringApplicationTests {
 
 	@Test
 	void actuatorHealthy() {
-		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/actuator/health",
-				String.class)).contains("\"status\":\"UP\"");
+
+		this.restClient.get().uri("http://localhost:" + port + "/actuator/health").exchange()
+												.expectStatus().is2xxSuccessful()
+												.expectBody().jsonPath("$.status").isEqualTo("UP");
+				
 	}
 
 }

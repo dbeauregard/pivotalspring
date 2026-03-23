@@ -1,1 +1,7 @@
 // See top level build.gradle
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-restclient'
+	// implementation 'org.springframework.boot:spring-boot-starter-webclient'
+	testImplementation 'org.springframework.boot:spring-boot-starter-restclient-test'	
+	// testImplementation 'org.springframework.boot:spring-boot-starter-webclient-test'	
+}

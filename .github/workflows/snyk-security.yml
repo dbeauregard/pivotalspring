@@ -54,10 +54,15 @@ jobs:
           echo "NAME: $NAME"
           echo "DOCKER_TAG=$NAME:CURRENT" >> $GITHUB_ENV
 
+      - name: Snyk Auth
+        run: snyk auth --auth-type=token 
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
       # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
-      # Use || true to not fail the pipeline, or continue-on-error
+      # Use || true to not fail the pipeline, or continue-on-error --sarif-file-output=
       - name: Snyk Code (SAST) test
-        run: snyk code test --sarif | tee snyk-code.sarif # || true
+        run: snyk code test  --sarif-file-output=snyk-code.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -65,7 +70,7 @@ jobs:
       # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       # Server
       - name: Snyk Open Source (SCA) test - Server
-        run: snyk test --gradle-sub-project=pivotalspring-server --sarif | tee snyk-sca-server.sarif
+        run: snyk test --gradle-sub-project=pivotalspring-server --sarif-file-output=snyk-sca-server.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

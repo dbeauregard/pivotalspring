@@ -3,7 +3,6 @@
 ext {
   set('springAiVersion', "2.0.0-M3")
   set('openapiVersion', '3.0.2')
-  set('swaggerVersion', '2.2.41')
 }
 
 dependencies {
@@ -14,7 +13,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' //??
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiVersion}"
-	implementation "io.swagger.core.v3:swagger-annotations:${swaggerVersion}"  //TODO: Temporary fix for Swagger
 	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
 	implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
   	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'

@@ -65,7 +65,6 @@ jobs:
       # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       # Server
       - name: Snyk Open Source (SCA) test - Server
-        # run: snyk test --report --sarif | tee snyk-sca.sarif
         run: snyk test --gradle-sub-project=pivotalspring-server --sarif | tee snyk-sca-server.sarif
         continue-on-error: true
         env:
@@ -74,7 +73,6 @@ jobs:
       # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       # Client
       - name: Snyk Open Source (SCA) test - Client
-        # run: snyk test --report --sarif | tee snyk-sca.sarif
         run: snyk test --gradle-sub-project=pivotalspring-client --sarif | tee snyk-sca-client.sarif
         continue-on-error: true
         env:
@@ -102,6 +100,12 @@ jobs:
         with:
           sarif_file: snyk-code.sarif
           category: "SAST"
+
+      - name: Upload Client Jar
+        uses: actions/upload-artifact@v6
+        with:
+          name: SCA
+          path: snyk-sca-server.sarif
 
       - name: Upload SCA results to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v4

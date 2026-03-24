@@ -57,7 +57,7 @@ jobs:
       # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
       # Use || true to not fail the pipeline, or continue-on-error --sarif-file-output=
       - name: Snyk Code (SAST) test
-        run: snyk code test --sarif-file-output=snyk-code.sarif --org=dbeauregard-cbHqF2bbmY455MSYA3JCjz
+        run: snyk code test --sarif-file-output=snyk-code.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -73,7 +73,7 @@ jobs:
       # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       # Client
       - name: Snyk Open Source (SCA) test - Client
-        run: snyk test --gradle-sub-project=pivotalspring-client --sarif | tee snyk-sca-client.sarif
+        run: snyk test --gradle-sub-project=pivotalspring-client --sarif-file-output=snyk-sca-client.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -82,14 +82,14 @@ jobs:
       # Use || true to not fail the pipeline.
       - name: Snyk IaC test and report
         #run: snyk iac test --report --sarif | tee snyk-iaas.sarif # || true
-        run: snyk iac test --sarif | tee snyk-iaas.sarif
+        run: snyk iac test --sarif-file-output=snyk-iaas.sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       
       # Runs Snyk Container (Container and SCA) analysis and uploads result to Snyk.
       - name: Snyk Container test
-        run: snyk container test dbeauregard/$DOCKER_TAG --sarif | tee snyk-oci.sarif # --file=Dockerfile
+        run: snyk container test dbeauregard/$DOCKER_TAG --sarif-file-output=snyk-oci.sarif # --file=Dockerfile
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -100,12 +100,6 @@ jobs:
         with:
           sarif_file: snyk-code.sarif
           category: "SAST"
-
-      - name: Upload Client Jar
-        uses: actions/upload-artifact@v6
-        with:
-          name: SCA
-          path: snyk-sca-server.sarif
 
       - name: Upload SCA results to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v4

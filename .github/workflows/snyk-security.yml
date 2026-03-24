@@ -57,7 +57,7 @@ jobs:
       # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
       # Use || true to not fail the pipeline, or continue-on-error --sarif-file-output=
       - name: Snyk Code (SAST) test
-        run: snyk code test  --sarif-file-output=snyk-code.sarif
+        run: snyk code test --sarif-file-output=snyk-code.sarif --org=dbeauregard-cbHqF2bbmY455MSYA3JCjz
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

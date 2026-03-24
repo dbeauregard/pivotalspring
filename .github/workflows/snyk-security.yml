@@ -54,11 +54,6 @@ jobs:
           echo "NAME: $NAME"
           echo "DOCKER_TAG=$NAME:CURRENT" >> $GITHUB_ENV
 
-      - name: Snyk Auth
-        run: snyk auth --auth-type=token 
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
       # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
       # Use || true to not fail the pipeline, or continue-on-error --sarif-file-output=
       - name: Snyk Code (SAST) test

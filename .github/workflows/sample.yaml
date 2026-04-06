@@ -62,7 +62,7 @@ jobs:
         env:
           JOB_ENV_VAR: JobEnvVarValue
         steps:
-          - uses: actions/checkout@v4
+          - uses: actions/checkout@v6
           - name: Display Variables
             id: display-version-inputs
             env:
@@ -93,7 +93,7 @@ jobs:
           - name: Create an output file artifact
             run: echo "This is the contents of the output file" > output.txt
           - name: Upload output file
-            uses: actions/upload-artifact@v4
+            uses: actions/upload-artifact@v6
             with:
               name: output-file
               path: output.txt
@@ -124,7 +124,7 @@ jobs:
               echo "Output1: ${{needs.in-and-out.outputs.OUTPUT1}}"
               echo "Output1: ${{needs.in-and-out.outputs.OUTPUT2}}"
           - name: Download output file artifact
-            uses: actions/download-artifact@v4
+            uses: actions/download-artifact@v6
             with:
               name: output-file
               path: output

@@ -124,7 +124,7 @@ jobs:
               echo "Output1: ${{needs.in-and-out.outputs.OUTPUT1}}"
               echo "Output1: ${{needs.in-and-out.outputs.OUTPUT2}}"
           - name: Download output file artifact
-            uses: actions/download-artifact@v6
+            uses: actions/download-artifact@v8
             with:
               name: output-file
               path: output

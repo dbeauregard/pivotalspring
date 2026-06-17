@@ -1,7 +1,7 @@
 // See top level build.gradle
 
 ext {
-  set('springAiVersion', "2.0.0-M8")
+  set('springAiVersion', "2.0.0")
   set('openapiVersion', '3.0.2')
 }
 
@@ -14,8 +14,8 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' //??
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiVersion}"
 	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
-	implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
-  	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
+	implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
+  	implementation 'org.springframework.ai:spring-ai-vector-store-advisor'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	// developmentOnly 'org.springframework.ai:spring-ai-spring-boot-docker-compose'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
